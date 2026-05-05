@@ -29,7 +29,7 @@
 
         <div class="bg-gradient-to-r from-[#151541] to-indigo-800
                     text-white p-4 rounded-t-2xl">
-            <h3 class="text-base font-semibold text-center lg:text-left">
+            <h3 class="text-base font-semibold text-center lg:text-left font-inria">
                 Status Properti
             </h3>
         </div>
@@ -130,7 +130,7 @@
         <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
             class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
     </div>
-    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold">
+    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold font-inria">
         {{ ucfirst($item->tipe_properti ?? 'properti') }}
     </div>
 

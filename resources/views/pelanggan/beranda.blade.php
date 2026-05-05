@@ -182,7 +182,7 @@
                               text-white px-8 py-4 rounded-2xl
                               text-sm font-semibold shadow-xl
                               hover:shadow-2xl hover:-translate-y-1
-                              active:scale-95 transition duration-300">
+                              active:scale-95 transition duration-300 font-inria">
                         Mulai Sekarang →
                     </a>
                 </div>
@@ -243,7 +243,7 @@
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
 
                 <div class="max-w-xl">
-                    <h2 class="text-3xl font-bold tracking-tight mb-4">
+                    <h2 class="text-3xl font-bold tracking-tight mb-4 font-inria">
                         Ingin Properti Anda Lebih Dilirik?
                     </h2>
 
@@ -262,7 +262,7 @@
                    target="_blank"
                    class="inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600
                           px-7 py-3 rounded-2xl text-white font-semibold text-sm
-                          shadow-lg hover:shadow-2xl transition duration-300 whitespace-nowrap">
+                          shadow-lg hover:shadow-2xl transition duration-300 whitespace-nowrap font-inria">
                     Hubungi Sekarang
                 </a>
 
@@ -284,7 +284,7 @@
             </h2>
 
             <a href="{{ route('pelanggan.properti') }}"
-               class="text-sm font-medium text-gray-500 hover:text-indigo-600 transition">
+               class="text-sm font-medium text-gray-500 hover:text-indigo-600 transition font-inria">
                 Lihat Semua →
             </a>
         </div>
@@ -293,45 +293,45 @@
 
             @forelse($properti as $item)
             <a href="{{ route('pelanggan.detail', $item->properti_id) }}"
-class="group block bg-white rounded-3xl overflow-hidden border border-gray-100
-        shadow-sm hover:shadow-2xl transition duration-300 hover:-translate-y-2">
+                class="group block bg-white rounded-3xl overflow-hidden border border-gray-100
+                        shadow-sm hover:shadow-2xl transition duration-300 hover:-translate-y-2">
 
-    {{-- BADGE UNGGULAN --}}
-    <div class="relative overflow-hidden">
-        @php
-            $foto = $item->fotos->first();
-        @endphp
+                {{-- BADGE UNGGULAN --}}
+                <div class="relative overflow-hidden">
+                    @php
+                        $foto = $item->fotos->first();
+                    @endphp
 
-        <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
-            class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
-            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold">
-                {{ ucfirst($item->tipe_properti ?? 'properti') }}
-            </div>
-        <div class="absolute top-3 left-3 bg-gradient-to-r from-yellow-600 to-orange-400 text-white text-xs px-3 py-1 rounded-full shadow font-semibold">
-            ⭐ Properti Unggulan
-        </div>
-    </div>
+                    <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
+                        class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold font-inria">
+                            {{ ucfirst($item->tipe_properti ?? 'properti') }}
+                        </div>
+                    <div class="absolute top-3 left-3 bg-gradient-to-r from-yellow-600 to-orange-400 text-white text-xs px-3 py-1 rounded-full shadow font-semibold">
+                        ⭐ Properti Unggulan
+                    </div>
+                </div>
 
-    <div class="p-7 text-sm">
+                <div class="p-7 text-sm">
 
-        <h3 class="font-semibold text-lg text-gray-900 mb-1 font-inria group-hover:text-indigo-600 transition">
-            {{ $item->nama_properti }}
-        </h3>
+                    <h3 class="font-semibold text-lg text-gray-900 mb-1 font-inria group-hover:text-indigo-600 transition">
+                        {{ $item->nama_properti }}
+                    </h3>
 
-        <p class="text-gray-500 text-xs mb-1">
-            {{ $item->lokasi }}
-        </p>
+                    <p class="text-gray-500 text-xs mb-1">
+                        {{ $item->lokasi }}
+                    </p>
 
-        <p class="text-gray-500 text-xs truncate">
-            {{ implode(' • ', array_map('trim', explode(',', $item->fasilitas))) }}
-        </p>
+                    <p class="text-gray-500 text-xs truncate">
+                        {{ implode(' • ', array_map('trim', explode(',', $item->fasilitas))) }}
+                    </p>
 
-        <p class="font-bold text-indigo-600 text-lg mt-5">
-            Rp {{ number_format($item->harga, 0, ',', '.') }}
-        </p>
+                    <p class="font-bold text-indigo-600 text-lg mt-5">
+                        Rp {{ number_format($item->harga, 0, ',', '.') }}
+                    </p>
 
-    </div>
-</a>
+                </div>
+            </a>
             @empty
                 <p class="text-gray-500 col-span-3 text-center font-inria">
                     Belum ada properti unggulan.

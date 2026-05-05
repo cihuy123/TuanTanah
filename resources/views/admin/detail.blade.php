@@ -33,15 +33,29 @@
         {{-- ================= LEFT ================= --}}
         <div class="space-y-6">
 
-            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <img src="{{ asset('storage/' . $properti->foto_properti) }}"
-                    class="w-full h-72 object-cover">
+            {{-- FOTO SLIDER --}}
+            <div class="bg-white rounded-2xl shadow-sm p-4">
+
+                @if($properti->fotos->count() > 0)
+                    <div class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
+
+                        @foreach($properti->fotos as $foto)
+                            <img src="{{ asset('storage/' . $foto->path) }}"
+                                 class="h-64 w-96 object-cover rounded-xl shadow flex-shrink-0 snap-center">
+                        @endforeach
+
+                    </div>
+                @else
+                    <div class="h-64 flex items-center justify-center text-gray-400">
+                        Tidak ada foto
+                    </div>
+                @endif
+
             </div>
 
-            <div class="bg-white rounded-2xl shadow-sm p-4 text-center">
-                <p class="text-xs text-gray-500 font-inria">
-                    Diposting pada
-                    {{ \Carbon\Carbon::parse($properti->created_at)->format('d.m.Y') }}
+            <div class="bg-white rounded-2xl shadow-sm p-1 text-center">
+                <p class="text-sm text-gray-500 mb-3 font-inria">
+                    Diposting {{ $properti->created_at->diffForHumans() }}
                 </p>
             </div>
 
@@ -123,6 +137,38 @@
                     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                         <p class="font-semibold text-gray-700 mb-1 font-inria">Lokasi</p>
                         <p class="text-gray-600">{{ $properti->lokasi }}</p>
+                    </div>
+
+                    {{-- INFO --}}
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 class="font-semibold text-gray-700 mb-4 font-inria">
+                            Informasi Properti
+                        </h3>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
+
+                            <div class="p-1 rounded-xl bg-gray-50">
+                                <p class="text-gray-700 text-xs font-inria">Tipe</p>
+                                <p class="font-semibold text-gray-600">
+                                    {{ ucfirst($properti->tipe_properti ?? '-') }}
+                                </p>
+                            </div>
+
+                            <div class="p-1 rounded-xl bg-gray-50">
+                                <p class="text-gray-700 text-xs font-inria">Luas</p>
+                                <p class="font-semibold text-gray-600">
+                                    {{ $properti->luas_tanah ?? '-' }} m²
+                                </p>
+                            </div>
+
+                            <div class="p-1 rounded-xl bg-gray-50">
+                                <p class="text-gray-700 text-xs font-inria">Kamar</p>
+                                <p class="font-semibold text-gray-600">
+                                    {{ $properti->jumlah_kamar ?? '-' }}
+                                </p>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="bg-white p-4 sm:p-5 rounded-xl border border-gray-200 shadow-sm">

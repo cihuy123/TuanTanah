@@ -6,18 +6,33 @@
 
 <div class="mb-20 max-w-5xl mx-auto px-4">
 
-    {{-- BACK --}}
-    <a href="{{ url()->previous() ?: route('pemilik.beranda') }}"
-       class="inline-flex items-center gap-2 mb-6 px-5 py-2.5
-              bg-white border border-gray-200 rounded-full shadow-sm
-              text-sm text-gray-700
-              hover:bg-indigo-600 hover:text-white transition">
-        < Kembali
+    <a href="{{ url()->previous() }}"
+        class="inline-flex items-center gap-2 mb-8 px-5 py-2.5
+                bg-white border border-gray-200 rounded-full shadow-sm
+                text-sm font-medium text-gray-700
+                hover:bg-indigo-600 hover:text-white hover:shadow-md
+                transition duration-300">
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 19l-7-7 7-7" />
+        </svg>
+
+        Kembali
     </a>
 
-    <h2 class="text-2xl font-semibold text-center mb-8 text-gray-800">
+    <h2 class="text-2xl font-semibold text-center mb-8 text-gray-800 font-inria">
         Ubah Data Properti
     </h2>
+    <div class="mb-6 p-4 rounded-xl bg-yellow-50 border border-yellow-200 text-yellow-700 text-sm text-center font-inria">
+        Jika Anda mengubah data properti, properti akan ditinjau ulang oleh admin sebelum ditampilkan kembali.
+    </div>
 
     <form method="POST"
           action="{{ route('pemilik.update', $properti->properti_id) }}"
@@ -30,11 +45,11 @@
         {{-- ================= FOTO ================= --}}
         <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm mb-10 max-w-4xl mx-auto">
 
-            <label class="block text-sm font-semibold text-gray-700 mb-3 text-center">
+            <label class="block text-sm font-semibold text-gray-700 mb-3 text-center font-inria">
                 Foto Properti
             </label>
 
-            <div class="mb-5 p-3 rounded-xl bg-yellow-50 text-yellow-700 text-xs text-center">
+            <div class="mb-5 p-3 rounded-xl bg-yellow-100 text-yellow-700 text-xs text-center font-inria">
                 ⚠️ Upload foto baru akan menghapus semua foto lama
             </div>
 
@@ -65,8 +80,8 @@
             <button type="button"
                 onclick="document.getElementById('fotoInput').click()"
                 class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700
-                    text-white py-3 rounded-xl text-sm font-semibold shadow cursor-pointer">
-                Ganti Foto
+                    text-white py-3 rounded-xl text-sm font-semibold shadow cursor-pointer font-inria">
+                Perbarui Foto
             </button>
 
         </div>
@@ -77,23 +92,26 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
 
                 <div>
-                    <label class="font-semibold">Nama Properti</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Nama Properti</label>
                     <input type="text" name="nama_properti"
                         value="{{ old('nama_properti', $properti->nama_properti) }}"
-                        class="w-full h-11 border rounded-lg px-4">
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
                 <div>
-                    <label class="font-semibold">Lokasi</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Lokasi</label>
                     <input type="text" name="lokasi"
                         value="{{ old('lokasi', $properti->lokasi) }}"
-                        class="w-full h-11 border rounded-lg px-4">
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
                 <div>
-                    <label class="font-semibold">Tipe Properti</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Tipe Properti</label>
                     <select name="tipe_properti" id="tipe"
-                        class="w-full h-11 border rounded-lg px-4 cursor-pointer">
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition cursor-pointer font-inria">
                         <option value="">Pilih tipe</option>
                         <option value="rumah" {{ old('tipe_properti', $properti->tipe_properti)=='rumah' ? 'selected' : '' }}>Rumah</option>
                         <option value="tanah" {{ old('tipe_properti', $properti->tipe_properti)=='tanah' ? 'selected' : '' }}>Tanah</option>
@@ -104,51 +122,57 @@
 
                 {{-- KAMAR --}}
                 <div>
-                    <label class="font-semibold">Jumlah Kamar</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Jumlah Kamar</label>
                     <input type="number" name="jumlah_kamar" id="kamar"
                         value="{{ old('jumlah_kamar', $properti->jumlah_kamar) }}"
-                        class="w-full h-11 border rounded-lg px-4">
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     <p id="kamarInfo" class="text-xs text-gray-400 mt-1 hidden">
                         Tidak berlaku untuk tipe tanah
                     </p>
                 </div>
 
                 <div>
-                    <label class="font-semibold">Luas Tanah</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Luas Tanah</label>
                     <input type="number" name="luas_tanah"
                         value="{{ old('luas_tanah', $properti->luas_tanah) }}"
-                        class="w-full h-11 border rounded-lg px-4">
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
                 <div>
-                    <label class="font-semibold">Harga</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Harga</label>
                     <input type="number" name="harga"
                         value="{{ old('harga', (int) $properti->harga) }}"
-                        class="w-full h-11 border rounded-lg px-4">
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
-                <div class="md:col-span-2">
-                    <label class="font-semibold">Fasilitas</label>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Fasilitas</label>
                     <input type="text" name="fasilitas"
                         value="{{ old('fasilitas', $properti->fasilitas) }}"
-                        class="w-full h-11 border rounded-lg px-4">
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="font-semibold">Deskripsi</label>
-                    <textarea name="deskripsi" rows="3"
-                        class="w-full border rounded-lg px-4 py-3">{{ old('deskripsi', $properti->deskripsi) }}</textarea>
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
                 {{-- WHATSAPP --}}
-                <div class="md:col-span-2">
-                    <label class="font-semibold">WhatsApp</label>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">WhatsApp</label>
                     <input type="text" name="kontak_whatsapp" id="wa"
                         value="{{ old('kontak_whatsapp', $properti->kontak_whatsapp) }}"
-                        class="w-full h-11 border rounded-lg px-4">
+                        class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     <p id="waError" class="text-red-500 text-xs mt-1 hidden">
                         Nomor harus 11 - 15 digit angka
                     </p>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Deskripsi</label>
+                    <textarea name="deskripsi" rows="3"
+                        class="w-full border border-gray-200 rounded-lg px-4 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition py-3">{{ old('deskripsi', $properti->deskripsi) }}</textarea>
                 </div>
 
             </div>
@@ -156,7 +180,7 @@
             <button type="submit" id="btnSubmit"
                 disabled
                 class="mt-6 w-full bg-gray-300 cursor-not-allowed
-                       text-white py-3 rounded-xl font-semibold transition cursor-not-allowed">
+                       text-white py-3 rounded-xl font-semibold transition font-inria ">
                 Simpan Perubahan
             </button>
 

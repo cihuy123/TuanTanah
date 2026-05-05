@@ -6,23 +6,22 @@
 
 <div class="max-w-7xl mx-auto px-4 mt-6 mb-24">
 
-    {{-- Tombol Kembali --}}
-    <a href="{{ route('pemilik.pembayaran') }}"
-       class="inline-flex items-center gap-2 mb-8 px-5 py-2.5
-              bg-white border border-gray-200 rounded-full shadow-sm
-              text-sm font-medium text-gray-700
-              hover:bg-indigo-600 hover:text-white hover:shadow-md
-              transition duration-300">
+    <a href="{{ url()->previous() }}"
+        class="inline-flex items-center gap-2 mb-8 px-5 py-2.5
+                bg-white border border-gray-200 rounded-full shadow-sm
+                text-sm font-medium text-gray-700
+                hover:bg-indigo-600 hover:text-white hover:shadow-md
+                transition duration-300">
 
         <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-4 h-4"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2">
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
             <path stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15 19l-7-7 7-7" />
+                stroke-linejoin="round"
+                d="M15 19l-7-7 7-7" />
         </svg>
 
         Kembali
@@ -67,7 +66,7 @@
         {{-- TEXT --}}
         <div class="absolute bottom-0 left-0 p-6 text-white">
 
-            <h1 class="text-2xl sm:text-3xl font-bold">
+            <h1 class="text-2xl sm:text-3xl font-bold font-inria">
                 {{ $properti->nama_properti }}
             </h1>
 
@@ -104,30 +103,30 @@
         <div class="lg:col-span-2 space-y-6">
 
             {{-- INFO --}}
-            <div class="bg-white rounded-2xl p-6 shadow-md border">
-                <h3 class="font-semibold text-gray-800 mb-4">
+            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="font-semibold text-gray-800 mb-4 font-inria">
                     Informasi Properti
                 </h3>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
 
-                    <div class="p-4 rounded-xl bg-gray-50">
-                        <p class="text-gray-400 text-xs">Tipe</p>
-                        <p class="font-semibold">
+                    <div class="p-1 rounded-xl bg-gray-50">
+                        <p class="text-gray-400 text-xs font-inria">Tipe</p>
+                        <p class="font-semibold text-gray-600">
                             {{ ucfirst($properti->tipe_properti ?? '-') }}
                         </p>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-gray-50">
-                        <p class="text-gray-400 text-xs">Luas</p>
-                        <p class="font-semibold">
+                    <div class="p-1 rounded-xl bg-gray-50">
+                        <p class="text-gray-400 text-xs font-inria">Luas</p>
+                        <p class="font-semibold text-gray-600">
                             {{ $properti->luas_tanah ?? '-' }} m²
                         </p>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-gray-50">
-                        <p class="text-gray-400 text-xs">Kamar</p>
-                        <p class="font-semibold">
+                    <div class="p-1 rounded-xl bg-gray-50">
+                        <p class="text-gray-400 text-xs font-inria">Kamar</p>
+                        <p class="font-semibold text-gray-400">
                             {{ $properti->jumlah_kamar ?? '-' }}
                         </p>
                     </div>
@@ -136,8 +135,8 @@
             </div>
 
             {{-- FASILITAS --}}
-            <div class="bg-white rounded-2xl p-6 shadow-md border">
-                <h3 class="font-semibold text-gray-800 mb-4">Fasilitas</h3>
+            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="font-semibold text-gray-800 mb-4 font-inria">Fasilitas</h3>
 
                 <div class="flex flex-wrap gap-3">
                     @foreach(explode(',', $properti->fasilitas) as $item)
@@ -153,14 +152,14 @@
             </div>
 
             {{-- DESKRIPSI --}}
-            <div class="bg-white rounded-2xl p-6 shadow-md border">
-                <h3 class="font-semibold text-gray-800 mb-3">Deskripsi</h3>
+            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="font-semibold text-gray-800 mb-3 font-inria">Deskripsi</h3>
                 <p class="text-gray-600  leading-tight break-words">{{ $properti->deskripsi }}</p>
             </div>
 
             {{-- MAP --}}
-            <div class="bg-white rounded-2xl p-6 shadow-md border">
-                <h3 class="font-semibold text-gray-800 mb-3">Lokasi</h3>
+            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="font-semibold text-gray-800 mb-3 font-inria">Lokasi</h3>
 
                 <iframe
                     src="https://www.google.com/maps?q={{ urlencode($properti->lokasi) }}&output=embed"
@@ -175,9 +174,9 @@
         {{-- RIGHT --}}
         <div class="space-y-6">
 
-            <div class="bg-white rounded-2xl p-6 shadow-xl border sticky top-6">
+            <div class="bg-white rounded-xl p-4 shadow-xl border border-gray-200 sticky top-6">
 
-                <p class="text-sm text-gray-500 mb-3">
+                <p class="text-sm text-gray-500 mb-3 font-inria">
                     Diposting {{ $properti->created_at->diffForHumans() }}
                 </p>
 

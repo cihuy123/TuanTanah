@@ -38,12 +38,12 @@
         <div class="mb-4">
 
             @if($properti->status_pembayaran == 'pending' && is_null($properti->bukti_pembayaran))
-                <span class="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full font-semibold">
+                <span class="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full font-semibold font-inria">
                     Belum Dibayar
                 </span>
 
             @elseif($properti->status_pembayaran == 'ditolak')
-                <span class="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full font-semibold">
+                <span class="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full font-semibold font-inria">
                     Ditolak
                 </span>
             @endif

@@ -8,10 +8,24 @@
 
     {{-- BACK --}}
     <a href="{{ route('admin.pembayaran') }}"
-       class="inline-flex items-center gap-2 mb-6 px-4 py-2
-              bg-white border border-gray-200 rounded-full shadow-sm
-              text-sm text-gray-700 hover:bg-indigo-600 hover:text-white transition">
-        ← Kembali
+        class="inline-flex items-center gap-2 mb-8 px-5 py-2.5
+                bg-white border border-gray-200 rounded-full shadow-sm
+                text-sm font-medium text-gray-700
+                hover:bg-indigo-600 hover:text-white hover:shadow-md
+                transition duration-300">
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 19l-7-7 7-7" />
+        </svg>
+
+        Kembali
     </a>
 
     <div class="grid md:grid-cols-2 gap-6">
@@ -41,12 +55,16 @@
 
                 {{-- PROPERTI MINI --}}
                 <div class="flex items-center gap-3 mb-3">
-                    <img src="{{ asset('storage/' . $properti->foto_properti) }}"
-                         class="w-14 h-14 object-cover rounded-lg border">
+                    @php
+                        $foto = $properti->fotos->first();
+                    @endphp
+
+                    <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
+                        class="w-16 h-16 rounded-lg object-cover">
 
                     <div>
-                        <p class="text-xs text-gray-500">Properti</p>
-                        <p class="font-semibold text-gray-800">
+                        <p class="text-xs text-gray-500 font-inria">Properti</p>
+                        <p class="font-semibold text-gray-800 font-inria">
                             {{ $properti->nama_properti }}
                         </p>
                     </div>
@@ -54,14 +72,14 @@
 
                 {{-- STATUS (PINDAH KE SINI) --}}
                 <div class="mb-4">
-                    <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-semibold">
+                    <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-semibold font-inria">
                         Menunggu Validasi
                     </span>
                 </div>
 
                 {{-- BIAYA --}}
                 <div>
-                    <p class="text-gray-400 text-sm">Biaya Upload</p>
+                    <p class="text-gray-400 text-sm font-inria">Biaya Upload</p>
                     <p class="text-2xl font-bold text-indigo-600">
                         Rp 10.000
                     </p>
@@ -77,7 +95,7 @@
                     @csrf
                     <button type="submit"
                         class="w-full bg-green-600 hover:bg-green-700
-                               text-white py-3 rounded-lg text-sm font-semibold cursor-pointer">
+                               text-white py-3 rounded-lg text-sm font-semibold cursor-pointer font-inria">
                         Validasi Pembayaran
                     </button>
                 </form>
@@ -95,7 +113,7 @@
 
                     <button type="submit"
                         class="w-full bg-red-500 hover:bg-red-600
-                            text-white py-3 rounded-lg text-sm font-semibold cursor-pointer">
+                            text-white py-3 rounded-lg text-sm font-semibold cursor-pointer font-inria">
                         Tolak Pembayaran
                     </button>
                 </form>

@@ -20,7 +20,7 @@
     {{-- BADGE --}}
     <div class="absolute top-4 left-4
                 bg-yellow-100 text-yellow-700
-                text-xs font-semibold px-3 py-1 rounded-full z-10">
+                text-xs font-semibold px-3 py-1 rounded-full z-10 font-inria">
         Menunggu Validasi
     </div>
 

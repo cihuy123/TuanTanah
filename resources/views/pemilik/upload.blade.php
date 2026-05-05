@@ -226,7 +226,7 @@
                         </label>
                         <select name="tipe_properti"
                             class="w-full h-[42px] border border-gray-200 rounded-lg px-4 text-sm
-                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition cursor-pointer">
+                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition cursor-pointer font-inria">
 
                             <option value="">Pilih tipe</option>
                             <option value="rumah" {{ old('tipe_properti') == 'rumah' ? 'selected' : '' }}>Rumah</option>
@@ -249,20 +249,23 @@
 
                 </div>
 
-                {{-- ROW 5 --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
+                        Jumlah Kamar
+                    </label>
 
-                    {{-- KAMAR --}}
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
-                            Jumlah Kamar
-                        </label>
-                        <input type="number" name="jumlah_kamar" value="{{ old('jumlah_kamar') }}"
-                            placeholder="Contoh: 3"
-                            class="w-full h-[42px] border border-gray-200 rounded-lg px-4 text-sm
-                                focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                    </div>
+                    <input type="number"
+                        name="jumlah_kamar"
+                        id="kamar"
+                        value="{{ old('jumlah_kamar') }}"
+                        placeholder="Contoh: 3"
+                        class="w-full h-[42px] border border-gray-200 rounded-lg px-4 text-sm
+                            focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
 
+                    {{-- INFO --}}
+                    <p id="kamarInfo" class="text-xs text-gray-400 mt-1 hidden">
+                        Tidak berlaku untuk tipe tanah
+                    </p>
                 </div>
 
 
@@ -305,10 +308,21 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ================= SUBMIT BUTTON =================
+    // ================= ELEMENT =================
     const form = document.getElementById('formUpload');
     const btn = document.getElementById('btnUpload');
 
+    const tipe = document.querySelector('[name="tipe_properti"]');
+    const kamar = document.getElementById('kamar');
+    const info = document.getElementById('kamarInfo');
+
+    const input = document.querySelector('input[name="foto_properti[]"]');
+    const namaFoto = document.getElementById('namaFotoProperti');
+
+    let filesArray = [];
+
+
+    // ================= SUBMIT BUTTON =================
     if (form && btn) {
         form.addEventListener('submit', function () {
             btn.disabled = true;
@@ -317,32 +331,46 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ================= TIPE PROPERTI =================
-    const tipe = document.querySelector('[name="tipe_properti"]');
-    const kamar = document.querySelector('[name="jumlah_kamar"]');
 
-    if (tipe && kamar) {
-        tipe.addEventListener('change', function () {
-            if (this.value === 'tanah') {
-                kamar.value = '';
-                kamar.disabled = true;
-            } else {
-                kamar.disabled = false;
-            }
-        });
+    // ================= TIPE TANAH =================
+    function toggleKamar() {
+        if (!tipe || !kamar) return;
+
+        if (tipe.value === 'tanah') {
+            kamar.value = '';
+            kamar.disabled = true;
+
+            kamar.classList.add('bg-gray-100', 'cursor-not-allowed');
+
+            if (info) info.classList.remove('hidden');
+
+        } else {
+            kamar.disabled = false;
+
+            kamar.classList.remove('bg-gray-100', 'cursor-not-allowed');
+
+            if (info) info.classList.add('hidden');
+        }
     }
 
-});
+    if (tipe) {
+        tipe.addEventListener('change', toggleKamar);
+        toggleKamar();
+    }
 
-document.addEventListener('DOMContentLoaded', function () {
 
-    let filesArray = [];
-    const input = document.querySelector('input[name="foto_properti[]"]');
-
+    // ================= FOTO MULTI UPLOAD =================
     if (input) {
         input.addEventListener('change', function(e) {
 
             const newFiles = Array.from(e.target.files);
+
+            // limit max 5
+            if (filesArray.length + newFiles.length > 5) {
+                alert('Maksimal 5 foto');
+                return;
+            }
+
             filesArray = filesArray.concat(newFiles);
 
             const dataTransfer = new DataTransfer();
@@ -350,8 +378,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             input.files = dataTransfer.files;
 
-            let names = filesArray.map(f => f.name).join(', ');
-            document.getElementById('namaFotoProperti').innerText = names;
+            if (namaFoto) {
+                let names = filesArray.map(f => f.name).join(', ');
+                namaFoto.innerText = names;
+            }
         });
     }
 

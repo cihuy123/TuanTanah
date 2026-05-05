@@ -28,7 +28,7 @@
                     {{-- Badge --}}
                     <div class="absolute top-4 left-4
                                 bg-yellow-100 text-yellow-700
-                                text-xs font-semibold px-3 py-1 rounded-full z-10">
+                                text-xs font-semibold px-3 py-1 rounded-full z-10 font-inria">
                         Menunggu Verifikasi Admin
                     </div>
 
@@ -43,7 +43,7 @@
                                 class="w-full h-44 object-cover group-hover:scale-105 transition duration-500"
                                 alt="Properti">
                         </div>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold font-inria">
                             {{ ucfirst($item->tipe_properti ?? 'properti') }}
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                     {{-- Badge --}}
                     <div class="absolute top-4 left-4
                                 bg-red-100 text-red-600
-                                text-xs font-semibold px-3 py-1 rounded-full z-10">
+                                text-xs font-semibold px-3 py-1 rounded-full z-10 font-inria">
                         Ditolak
                     </div>
 
@@ -124,7 +124,7 @@
                                 class="w-full h-44 object-cover group-hover:scale-105 transition duration-500"
                                 alt="Properti">
                         </div>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold font-inria">
                             {{ ucfirst($item->tipe_properti ?? 'properti') }}
                         </div>
                     </div>

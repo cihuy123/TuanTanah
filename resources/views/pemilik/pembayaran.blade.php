@@ -19,12 +19,12 @@
 
         {{-- BADGE STATUS --}}
         @if(is_null($item->bukti_pembayaran))
-            <div class="absolute top-4 left-4 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-semibold shadow">
+            <div class="absolute top-4 left-4 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-semibold shadow font-inria">
                 Belum Dibayar
             </div>
 
         @elseif($item->status_pembayaran == 'ditolak')
-            <div class="absolute top-4 left-4 bg-red-400 text-white text-xs px-3 py-1 rounded-full font-semibold shadow">
+            <div class="absolute top-4 left-4 bg-red-400 text-white text-xs px-3 py-1 rounded-full font-semibold shadow font-inria">
                 Ditolak
             </div>
         @endif
@@ -46,7 +46,7 @@
             </h3>
 
             {{-- BIAYA --}}
-            <p class="text-gray-400 text-xs mb-4">
+            <p class="text-gray-400 text-xs mb-4 font-inria">
                 Biaya Upload:
                 <span class="font-semibold text-gray-700">Rp 10.000</span>
             </p>
@@ -63,7 +63,7 @@
                class="block text-center
                       {{ $item->status_pembayaran == 'ditolak' ? 'bg-red-500 hover:bg-red-600' : 'bg-indigo-600 hover:bg-indigo-700' }}
                       text-white py-2.5 rounded-xl text-sm font-semibold
-                      transition duration-300 shadow">
+                      transition duration-300 shadow font-inria">
 
                 @if(is_null($item->bukti_pembayaran))
                     Bayar Sekarang

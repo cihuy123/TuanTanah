@@ -15,7 +15,7 @@
 
             {{-- LOKASI --}}
             <div class="relative">
-                <label class="text-[11px] text-gray-500 font-medium">Lokasi</label>
+                <label class="text-[11px] text-gray-500 font-medium font-inria">Lokasi</label>
 
                 <div class="relative">
                     <input type="text" name="lokasi" value="{{ request('lokasi') }}"
@@ -37,12 +37,12 @@
 
             {{-- TIPE --}}
             <div>
-                <label class="text-[11px] text-gray-500 font-medium">Tipe</label>
+                <label class="text-[11px] text-gray-500 font-medium font-inria">Tipe</label>
 
                 <select name="tipe"
                     class="w-full border border-gray-200 rounded-lg
                         px-3 py-2 text-sm
-                        focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer">
+                        focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer font-inria">
 
                     <option value="">Semua</option>
                     <option value="rumah" {{ request('tipe')=='rumah' ? 'selected' : '' }}>Rumah</option>
@@ -55,7 +55,7 @@
 
             {{-- MIN --}}
             <div class="relative">
-                <label class="text-[11px] text-gray-500 font-medium">Min</label>
+                <label class="text-[11px] text-gray-500 font-medium font-inria">Min</label>
 
                 <input type="number" name="min" value="{{ request('min') }}"
                     placeholder="0"
@@ -71,7 +71,7 @@
 
             {{-- MAX --}}
             <div class="relative">
-                <label class="text-[11px] text-gray-500 font-medium">Max</label>
+                <label class="text-[11px] text-gray-500 font-medium font-inria">Max</label>
 
                 <input type="number" name="max" value="{{ request('max') }}"
                     placeholder="0"
@@ -93,7 +93,7 @@
                     class="flex-1 flex items-center justify-center gap-2
                         bg-indigo-600 text-white px-4 py-2
                         rounded-lg text-sm font-medium
-                        hover:bg-indigo-700 shadow-sm hover:shadow-md transition cursor-pointer">
+                        hover:bg-indigo-700 shadow-sm hover:shadow-md transition cursor-pointer font-inria">
 
                     {{-- ICON SEARCH --}}
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@
                 {{-- RESET --}}
                 <a href="{{ route('pelanggan.properti') }}"
                 class="px-3 py-2 text-sm rounded-lg border border-gray-200
-                        text-gray-600 hover:bg-gray-100 text-center">
+                        text-gray-600 hover:bg-gray-100 text-center font-inria">
                     Reset
                 </a>
 
@@ -145,7 +145,7 @@
                         <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
                             class="w-full h-44 object-cover group-hover:scale-105 transition duration-300">
 
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold font-inria">
                             {{ ucfirst($item->tipe_properti ?? 'properti') }}
                         </div>
                         <div class="absolute top-3 left-3 bg-gradient-to-r from-yellow-600 to-orange-400 text-white text-xs px-3 py-1 rounded-full shadow font-semibold">
@@ -213,7 +213,7 @@
                         <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
                             class="w-full h-44 object-cover group-hover:scale-105 transition duration-300">
 
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold font-inria">
                             {{ ucfirst($item->tipe_properti ?? 'properti') }}
                         </div>
                     </div>

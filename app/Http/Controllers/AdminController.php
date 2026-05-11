@@ -16,7 +16,21 @@ class AdminController extends Controller
     public function beranda()
     {
         // 🔥 TOTAL PROPERTI (yang sudah valid pembayaran)
-        $totalProperti = Properti::where('status_pembayaran', 'valid')->count();
+        $totalProperti = Properti::where(function ($q) {
+
+    // 🔥 SUDAH BAYAR MENUNGGU VALIDASI
+            $q->where(function ($sub) {
+                $sub->where('status_pembayaran', 'pending')
+                    ->whereNotNull('bukti_pembayaran');
+            })
+
+            // 🔥 SUDAH VALID & BUKAN DITOLAK
+            ->orWhere(function ($sub) {
+                $sub->where('status_pembayaran', 'valid')
+                    ->whereIn('status', ['menunggu', 'disetujui']);
+            });
+
+        })->count();
 
         // 🔥 TOTAL PEMILIK
         $totalPemilik = User::where('role', 'pemilik')->count();

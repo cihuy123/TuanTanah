@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Properti;
 use App\Models\PropertiFoto;
+use Illuminate\Support\Facades\DB;
 
 class PemilikController extends Controller
 {
@@ -19,7 +20,23 @@ class PemilikController extends Controller
 
         // 🔥 TOTAL (hanya yang sudah valid pembayaran)
         $total = Properti::where('user_id', $userId)
-            ->where('status_pembayaran', 'valid')
+
+            ->where(function ($q) {
+
+                // 🔥 SUDAH BAYAR MENUNGGU VALIDASI
+                $q->where(function ($sub) {
+                    $sub->where('status_pembayaran', 'pending')
+                        ->whereNotNull('bukti_pembayaran');
+                })
+
+                // 🔥 SUDAH VALID & BUKAN DITOLAK
+                ->orWhere(function ($sub) {
+                    $sub->where('status_pembayaran', 'valid')
+                        ->whereIn('status', ['menunggu', 'disetujui']);
+                });
+
+            })
+
             ->count();
 
         // 🔥 BELUM BAYAR + DITOLAK PEMBAYARAN
@@ -100,74 +117,188 @@ class PemilikController extends Controller
             ->where('user_id', Auth::id())
             ->firstOrFail();
 
+        // 🔥 BERSIHKAN INPUT
+        $namaProperti = trim($request->nama_properti);
+        $lokasi = trim($request->lokasi);
+
+        $fasilitas = collect(explode(',', $request->fasilitas))
+            ->map(fn($item) => trim($item))
+            ->filter()
+            ->implode(', ');
+
+        $request->merge([
+            'nama_properti' => $namaProperti,
+            'lokasi' => $lokasi,
+            'fasilitas' => $fasilitas,
+        ]);
+
+        // 🔥 VALIDASI
         $request->validate([
-            'nama_properti' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
-            'fasilitas' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0',
-            'deskripsi' => 'required|string',
+
+            'nama_properti' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/.*\S.*/'
+            ],
+
+            'lokasi' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/.*\S.*/'
+            ],
+
+            'fasilitas' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/.*\S.*/'
+            ],
+
+            'harga' => 'required|numeric|min:0|max:999999999999',
+
+            'deskripsi' => [
+                'required',
+                'string',
+                'max:3000',
+                'regex:/.*\S.*/'
+            ],
+
             'kontak_whatsapp' => 'required|digits_between:10,15',
+
             'tipe_properti' => 'required|in:rumah,tanah,ruko,apartemen',
+
             'luas_tanah' => 'nullable|numeric|min:0',
+
             'jumlah_kamar' => 'nullable|integer|min:0',
 
             // 🔥 MULTI FOTO
             'foto_properti' => 'nullable|array|max:5',
-            'foto_properti.*' => 'image|mimes:jpg,jpeg,png|max:5120'
+
+            'foto_properti.*' => [
+                'image',
+                'mimes:jpg,jpeg,png',
+                'max:5120'
+            ]
+
         ], [
+
+            // 🔥 NAMA
             'nama_properti.required' => 'Nama properti wajib diisi.',
+            'nama_properti.regex' => 'Nama properti tidak boleh hanya berisi spasi.',
+            'nama_properti.max' => 'Nama properti maksimal 255 karakter.',
+
+            // 🔥 LOKASI
             'lokasi.required' => 'Lokasi wajib diisi.',
+            'lokasi.regex' => 'Lokasi tidak boleh hanya berisi spasi.',
+            'lokasi.max' => 'Lokasi maksimal 255 karakter.',
+
+            // 🔥 FASILITAS
             'fasilitas.required' => 'Fasilitas wajib diisi.',
+            'fasilitas.regex' => 'Fasilitas tidak boleh kosong.',
+            'fasilitas.max' => 'Fasilitas maksimal 255 karakter.',
+
+            // 🔥 HARGA
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
+            'harga.min' => 'Harga tidak boleh kurang dari 0.',
+            'harga.max' => 'Harga maksimal 999 miliar.',
+
+            // 🔥 DESKRIPSI
             'deskripsi.required' => 'Deskripsi wajib diisi.',
+            'deskripsi.regex' => 'Deskripsi tidak boleh hanya berisi spasi.',
+            'deskripsi.max' => 'Deskripsi maksimal 3000 karakter.',
+
+            // 🔥 WHATSAPP
             'kontak_whatsapp.required' => 'Nomor WhatsApp wajib diisi.',
             'kontak_whatsapp.digits_between' => 'Nomor WhatsApp harus 10–15 digit.',
 
-            'tipe_properti.required' => 'Tipe wajib diisi.',
+            // 🔥 TIPE
+            'tipe_properti.required' => 'Tipe properti wajib dipilih.',
+            'tipe_properti.in' => 'Tipe properti tidak valid.',
+
+            // 🔥 LUAS TANAH
+            'luas_tanah.numeric' => 'Luas tanah harus berupa angka.',
+            'luas_tanah.min' => 'Luas tanah tidak boleh kurang dari 0.',
+
+            // 🔥 JUMLAH KAMAR
+            'jumlah_kamar.integer' => 'Jumlah kamar harus berupa angka bulat.',
+            'jumlah_kamar.min' => 'Jumlah kamar tidak boleh kurang dari 0.',
+
+            // 🔥 FOTO
+            'foto_properti.array' => 'Format upload foto tidak valid.',
+            'foto_properti.max' => 'Maksimal upload 5 foto.',
 
             'foto_properti.*.image' => 'File harus berupa gambar.',
             'foto_properti.*.mimes' => 'Format gambar harus JPG, JPEG, atau PNG.',
             'foto_properti.*.max' => 'Ukuran gambar maksimal 5MB.',
         ]);
 
-        // 🔥 UPDATE DATA
-        $properti->update([
-            'nama_properti' => $request->nama_properti,
-            'lokasi' => $request->lokasi,
-            'fasilitas' => $request->fasilitas,
-            'harga' => $request->harga,
-            'deskripsi' => $request->deskripsi,
-            'kontak_whatsapp' => $request->kontak_whatsapp,
-            'tipe_properti' => $request->tipe_properti,
-            'luas_tanah' => $request->luas_tanah,
-            'jumlah_kamar' => $request->jumlah_kamar,
-            'status' => 'menunggu',
-        ]);
+        // 🔥 TANAH TIDAK BOLEH PUNYA KAMAR
+        $jumlahKamar = $request->jumlah_kamar;
 
-        // 🔥 UPDATE FOTO (kalau ada upload baru)
-        if ($request->hasFile('foto_properti')) {
-
-            // hapus semua foto lama
-            foreach ($properti->fotos as $foto) {
-                Storage::disk('public')->delete($foto->path);
-                $foto->delete();
-            }
-
-            // simpan foto baru
-            foreach ($request->file('foto_properti') as $file) {
-
-                $path = $file->store('properti', 'public');
-
-                PropertiFoto::create([
-                    'properti_id' => $properti->properti_id,
-                    'path' => $path
-                ]);
-            }
+        if ($request->tipe_properti === 'tanah') {
+            $jumlahKamar = null;
         }
 
-        return redirect()->route('pemilik.beranda')
-            ->with('success', 'Properti berhasil diperbarui.');
+        DB::beginTransaction();
+
+        try {
+
+            // 🔥 UPDATE DATA
+            $properti->update([
+                'nama_properti' => $request->nama_properti,
+                'lokasi' => $request->lokasi,
+                'fasilitas' => $request->fasilitas,
+                'harga' => $request->harga,
+                'deskripsi' => $request->deskripsi,
+                'kontak_whatsapp' => $request->kontak_whatsapp,
+                'tipe_properti' => $request->tipe_properti,
+                'luas_tanah' => $request->luas_tanah,
+                'jumlah_kamar' => $jumlahKamar,
+
+                // 🔥 WAJIB VERIFIKASI ULANG
+                'status' => 'menunggu',
+            ]);
+
+            // 🔥 UPDATE FOTO
+            if ($request->hasFile('foto_properti')) {
+
+                // hapus semua foto lama
+                foreach ($properti->fotos as $foto) {
+
+                    Storage::disk('public')->delete($foto->path);
+
+                    $foto->delete();
+                }
+
+                // simpan foto baru
+                foreach ($request->file('foto_properti') as $file) {
+
+                    $path = $file->store('properti', 'public');
+
+                    PropertiFoto::create([
+                        'properti_id' => $properti->properti_id,
+                        'path' => $path
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->with('error', 'Gagal memperbarui properti, silakan coba lagi.');
+        }
+
+        return redirect()
+            ->route('pemilik.beranda')
+            ->with('success', 'Properti berhasil diperbarui dan menunggu verifikasi ulang.');
     }
 
 
@@ -184,88 +315,199 @@ class PemilikController extends Controller
     {
         $userId = Auth::id();
 
+        // 🔥 BERSIHKAN INPUT
+        $namaProperti = trim($request->nama_properti);
+        $lokasi = trim($request->lokasi);
+
+        $fasilitas = collect(explode(',', $request->fasilitas))
+            ->map(fn($item) => trim($item))
+            ->filter()
+            ->implode(', ');
+
+        $request->merge([
+            'nama_properti' => $namaProperti,
+            'lokasi' => $lokasi,
+            'fasilitas' => $fasilitas,
+        ]);
+
+        // 🔥 HITUNG PROPERTI VALID
         $jumlahProperti = Properti::where('user_id', $userId)
             ->where('status_pembayaran', 'valid')
             ->count();
 
+        // 🔥 VALIDASI
         $request->validate([
-            'nama_properti' => 'required|string|max:255',
-            'fasilitas' => 'required|string|max:255',
-            'foto_properti' => 'required|array|max:5',
-            'foto_properti.*' => 'image|mimes:jpg,jpeg,png|max:5120',
-            'lokasi' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0',
-            'kontak_whatsapp' => 'required|digits_between:10,15',
-            'tipe_properti' => 'required|in:rumah,tanah,ruko,apartemen',
-            'luas_tanah' => 'nullable|numeric|min:0',
-            'jumlah_kamar' => 'nullable|integer|min:0',
-            'deskripsi' => 'required|string',
-        ], [
-            'nama_properti.required' => 'Nama properti wajib diisi.',
-            'fasilitas.required' => 'Fasilitas wajib diisi.',
 
+            'nama_properti' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/.*\S.*/'
+            ],
+
+            'fasilitas' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/.*\S.*/'
+            ],
+
+            'foto_properti' => 'required|array|min:1|max:5',
+
+            'foto_properti.*' => [
+                'image',
+                'mimes:jpg,jpeg,png',
+                'max:5120'
+            ],
+
+            'lokasi' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/.*\S.*/'
+            ],
+
+            'harga' => 'required|numeric|min:0|max:999999999999',
+
+            'kontak_whatsapp' => 'required|digits_between:10,15',
+
+            'tipe_properti' => 'required|in:rumah,tanah,ruko,apartemen',
+
+            'luas_tanah' => 'nullable|numeric|min:0',
+
+            'jumlah_kamar' => 'nullable|integer|min:0',
+
+            'deskripsi' => [
+                'required',
+                'string',
+                'max:3000',
+                'regex:/.*\S.*/'
+            ],
+
+        ], [
+
+            // 🔥 NAMA
+            'nama_properti.required' => 'Nama properti wajib diisi.',
+            'nama_properti.regex' => 'Nama properti tidak boleh hanya berisi spasi.',
+            'nama_properti.max' => 'Nama properti maksimal 255 karakter.',
+
+            // 🔥 FASILITAS
+            'fasilitas.required' => 'Fasilitas wajib diisi.',
+            'fasilitas.regex' => 'Fasilitas tidak boleh kosong.',
+            'fasilitas.max' => 'Fasilitas maksimal 255 karakter.',
+
+            // 🔥 FOTO
             'foto_properti.required' => 'Minimal satu foto properti harus diupload.',
+            'foto_properti.array' => 'Format upload foto tidak valid.',
+            'foto_properti.min' => 'Minimal upload 1 foto.',
+            'foto_properti.max' => 'Maksimal upload 5 foto.',
+
             'foto_properti.*.image' => 'File harus berupa gambar.',
             'foto_properti.*.mimes' => 'Format gambar harus JPG, JPEG, atau PNG.',
             'foto_properti.*.max' => 'Ukuran gambar maksimal 5MB.',
 
+            // 🔥 LOKASI
             'lokasi.required' => 'Lokasi wajib diisi.',
+            'lokasi.regex' => 'Lokasi tidak boleh hanya berisi spasi.',
+            'lokasi.max' => 'Lokasi maksimal 255 karakter.',
 
+            // 🔥 HARGA
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
             'harga.min' => 'Harga tidak boleh kurang dari 0.',
+            'harga.max' => 'Harga maksimal 999 miliar.',
 
-            'tipe_properti.required' => 'Tipe wajib diisi.',
-
+            // 🔥 WHATSAPP
             'kontak_whatsapp.required' => 'Nomor WhatsApp wajib diisi.',
             'kontak_whatsapp.digits_between' => 'Nomor WhatsApp harus 10–15 digit.',
 
+            // 🔥 TIPE
+            'tipe_properti.required' => 'Tipe properti wajib dipilih.',
+            'tipe_properti.in' => 'Tipe properti tidak valid.',
+
+            // 🔥 LUAS TANAH
+            'luas_tanah.numeric' => 'Luas tanah harus berupa angka.',
+            'luas_tanah.min' => 'Luas tanah tidak boleh kurang dari 0.',
+
+            // 🔥 JUMLAH KAMAR
+            'jumlah_kamar.integer' => 'Jumlah kamar harus berupa angka bulat.',
+            'jumlah_kamar.min' => 'Jumlah kamar tidak boleh kurang dari 0.',
+
+            // 🔥 DESKRIPSI
             'deskripsi.required' => 'Deskripsi wajib diisi.',
+            'deskripsi.regex' => 'Deskripsi tidak boleh hanya berisi spasi.',
+            'deskripsi.max' => 'Deskripsi maksimal 3000 karakter.',
+
         ]);
+
+        // 🔥 TANAH TIDAK BOLEH PUNYA KAMAR
+        $jumlahKamar = $request->jumlah_kamar;
+
+        if ($request->tipe_properti === 'tanah') {
+            $jumlahKamar = null;
+        }
 
         // 🔥 FREEMIUM LOGIC
         $statusPembayaran = $jumlahProperti >= 1 ? 'pending' : 'valid';
 
-        // 🔥 BUAT PROPERTI
-        $properti = Properti::create([
-            'user_id' => $userId,
-            'nama_properti' => $request->nama_properti,
-            'fasilitas' => $request->fasilitas,
-            'lokasi' => $request->lokasi,
-            'harga' => $request->harga,
-            'kontak_whatsapp' => $request->kontak_whatsapp,
-            'deskripsi' => $request->deskripsi,
-            'status' => 'menunggu',
-            'status_pembayaran' => $statusPembayaran,
-            'is_unggulan' => 0,
-            'tipe_properti' => $request->tipe_properti,
-            'luas_tanah' => $request->luas_tanah,
-            'jumlah_kamar' => $request->jumlah_kamar,
-        ]);
+        DB::beginTransaction();
 
-        // 🔥 SIMPAN FOTO
-        if ($request->hasFile('foto_properti')) {
-            foreach ($request->file('foto_properti') as $file) {
+        try {
 
-                $path = $file->store('properti', 'public');
+            // 🔥 BUAT PROPERTI
+            $properti = Properti::create([
+                'user_id' => $userId,
+                'nama_properti' => $request->nama_properti,
+                'fasilitas' => $request->fasilitas,
+                'lokasi' => $request->lokasi,
+                'harga' => $request->harga,
+                'kontak_whatsapp' => $request->kontak_whatsapp,
+                'deskripsi' => $request->deskripsi,
+                'status' => 'menunggu',
+                'status_pembayaran' => $statusPembayaran,
+                'is_unggulan' => 0,
+                'tipe_properti' => $request->tipe_properti,
+                'luas_tanah' => $request->luas_tanah,
+                'jumlah_kamar' => $jumlahKamar,
+            ]);
 
-                \App\Models\PropertiFoto::create([
-                    'properti_id' => $properti->properti_id,
-                    'path' => $path
-                ]);
+            // 🔥 SIMPAN FOTO
+            if ($request->hasFile('foto_properti')) {
+
+                foreach ($request->file('foto_properti') as $file) {
+
+                    $path = $file->store('properti', 'public');
+
+                    \App\Models\PropertiFoto::create([
+                        'properti_id' => $properti->properti_id,
+                        'path' => $path
+                    ]);
+                }
             }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->with('error', 'Upload properti gagal, silakan coba lagi.');
         }
 
         // 🔥 REDIRECT
         if ($statusPembayaran === 'pending') {
-            return redirect()->route('pemilik.detail', $properti->properti_id)
+
+            return redirect()
+                ->route('pemilik.detail', $properti->properti_id)
                 ->with('info', 'Silakan lakukan pembayaran untuk melanjutkan.');
         }
 
-        return redirect()->route('pemilik.beranda')
+        return redirect()
+            ->route('pemilik.beranda')
             ->with('success', 'Properti pertama berhasil diupload secara gratis.');
     }
-
 
     // ======================================
     // RIWAYAT

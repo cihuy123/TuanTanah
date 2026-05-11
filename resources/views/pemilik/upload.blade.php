@@ -177,12 +177,16 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
                             Harga
                         </label>
-                        <input type="number" name="harga"
+                        <input type="text"
+                            name="harga"
+                            inputmode="numeric"
+                            maxlength="12"
                             value="{{ old('harga') }}"
                             placeholder="Contoh: 750000000"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                             class="w-full h-[42px] border border-gray-200 rounded-lg px-4 text-sm
-                                   placeholder:text-gray-400
-                                   focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                    placeholder:text-gray-400
+                                    focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                         <p class="text-xs text-gray-500 mt-1">
                             Masukkan tanpa titik atau koma
                         </p>
@@ -199,6 +203,7 @@
                             name="kontak_whatsapp"
                             inputmode="numeric"
                             pattern="[0-9]*"
+                            minlength="10"
                             maxlength="15"
                             placeholder="Contoh: 081234567890"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '')"
@@ -241,8 +246,13 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
                             Luas Tanah (m²)
                         </label>
-                        <input type="number" name="luas_tanah" value="{{ old('luas_tanah') }}"
+                        <input type="text"
+                            inputmode="numeric"
+                            maxlength="5"
+                            name="luas_tanah"
+                            value="{{ old('luas_tanah') }}"
                             placeholder="Contoh: 120"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                             class="w-full h-[42px] border border-gray-200 rounded-lg px-4 text-sm
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     </div>
@@ -254,11 +264,14 @@
                         Jumlah Kamar
                     </label>
 
-                    <input type="number"
+                    <input type="text"
+                        inputmode="numeric"
+                        maxlength="2"
                         name="jumlah_kamar"
                         id="kamar"
                         value="{{ old('jumlah_kamar') }}"
                         placeholder="Contoh: 3"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                         class="w-full h-[42px] border border-gray-200 rounded-lg px-4 text-sm
                             focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
 
@@ -274,7 +287,7 @@
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
                         Deskripsi
                     </label>
-                    <textarea name="deskripsi" rows="4"
+                    <textarea name="deskripsi" rows="4" maxlength="3000"
                         placeholder="Jelaskan detail properti seperti luas tanah, kondisi bangunan, akses jalan, lingkungan sekitar, dll."
                         class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm
                                placeholder:text-gray-400
@@ -368,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // limit max 5
             if (filesArray.length + newFiles.length > 5) {
                 alert('Maksimal 5 foto');
+                input.value = '';
                 return;
             }
 

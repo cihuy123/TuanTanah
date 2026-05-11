@@ -86,6 +86,16 @@
 
         </div>
 
+        @if ($errors->any())
+            <div class="mb-6 bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl">
+                <ul class="text-sm space-y-1">
+                    @foreach ($errors->all() as $error)
+                        <li>• {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- ================= FORM ================= --}}
         <div class="bg-white p-6 rounded-2xl shadow-sm">
 
@@ -123,8 +133,14 @@
                 {{-- KAMAR --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Jumlah Kamar</label>
-                    <input type="number" name="jumlah_kamar" id="kamar"
+                    <input type="text"
+                        inputmode="numeric"
+                        maxlength="2"
+                        name="jumlah_kamar"
+                        id="kamar"
                         value="{{ old('jumlah_kamar', $properti->jumlah_kamar) }}"
+                        placeholder="Contoh: 3"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                         class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     <p id="kamarInfo" class="text-xs text-gray-400 mt-1 hidden">
@@ -134,16 +150,26 @@
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Luas Tanah</label>
-                    <input type="number" name="luas_tanah"
-                        value="{{ old('luas_tanah', $properti->luas_tanah) }}"
+                    <input type="text"
+                            inputmode="numeric"
+                            maxlength="5"
+                            name="luas_tanah"
+                            value="{{ old('luas_tanah', $properti->luas_tanah) }}"
+                            placeholder="Contoh: 120"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                         class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Harga</label>
-                    <input type="number" name="harga"
-                        value="{{ old('harga', (int) $properti->harga) }}"
+                    <input type="text"
+                            name="harga"
+                            inputmode="numeric"
+                            maxlength="12"
+                            value="{{ old('harga', (int) $properti->harga) }}"
+                            placeholder="Contoh: 750000000"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                         class="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
@@ -170,7 +196,7 @@
 
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Deskripsi</label>
-                    <textarea name="deskripsi" rows="3"
+                    <textarea name="deskripsi" rows="3" maxlength="3000"
                         class="w-full border border-gray-200 rounded-lg px-4 text-sm
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition py-3">{{ old('deskripsi', $properti->deskripsi) }}</textarea>
                 </div>

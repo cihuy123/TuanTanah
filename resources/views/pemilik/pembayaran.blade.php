@@ -38,14 +38,12 @@
                 class="w-full h-44 object-cover hover:scale-105 transition duration-300">
         </div>
 
-        {{-- CONTENT --}}
         <div class="p-5 text-sm">
 
             <h3 class="font-semibold text-gray-800 mb-2 font-inria">
                 {{ $item->nama_properti }}
             </h3>
 
-            {{-- BIAYA --}}
             <p class="text-gray-400 text-xs mb-4 font-inria">
                 Biaya Upload:
                 <span class="font-semibold text-gray-700">Rp 10.000</span>
@@ -61,7 +59,6 @@
                 </div>
             @endif
 
-            {{-- ACTION --}}
             <a href="{{ route('pemilik.detail', $item->properti_id) }}"
                class="block text-center
                       {{ $item->status_pembayaran == 'ditolak' ? 'bg-red-500 hover:bg-red-600' : 'bg-indigo-600 hover:bg-indigo-700' }}

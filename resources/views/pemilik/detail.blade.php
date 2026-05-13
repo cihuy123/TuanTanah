@@ -6,7 +6,6 @@
 
 <div class="max-w-xl mx-auto mb-20 px-4">
 
-    {{-- Tombol Kembali --}}
     <a href="{{ route('pemilik.pembayaran') }}"
        class="inline-flex items-center gap-2 mb-8 px-5 py-2.5
               bg-white border border-gray-200 rounded-full shadow-sm
@@ -112,7 +111,6 @@
                     Upload Bukti Transfer
                 </label>
 
-                {{-- Hidden input --}}
                 <input type="file"
                        name="bukti_pembayaran"
                        id="buktiInput"
@@ -120,7 +118,6 @@
                        class="hidden"
                        onchange="document.getElementById('namaBukti').innerText = this.files[0]?.name || 'Belum ada file dipilih'">
 
-                {{-- Custom field --}}
                 <label for="buktiInput"
                        class="flex items-center h-[44px] border rounded-lg px-4
                               cursor-pointer transition
@@ -183,14 +180,12 @@
 
 @endsection
 
-
-{{-- SCRIPT --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('formBukti');
     const btn = document.getElementById('btnBukti');
 
-    console.log(form, btn); // DEBUG
+    console.log(form, btn); 
 
     if (form && btn) {
         form.addEventListener('submit', function () {

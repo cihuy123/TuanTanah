@@ -42,7 +42,7 @@
         @csrf
         @method('PUT')
 
-        {{-- ================= FOTO ================= --}}
+        {{-- FOTO --}}
         <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm mb-10 max-w-4xl mx-auto">
 
             <label class="block text-sm font-semibold text-gray-700 mb-3 text-center font-inria">
@@ -69,7 +69,6 @@
 
         </div>
 
-            {{-- INPUT --}}
             <input type="file"
                 name="foto_properti[]"
                 id="fotoInput"
@@ -96,7 +95,7 @@
             </div>
         @endif
 
-        {{-- ================= FORM ================= --}}
+        {{-- FORM --}}
         <div class="bg-white p-6 rounded-2xl shadow-sm">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
@@ -130,7 +129,6 @@
                     </select>
                 </div>
 
-                {{-- KAMAR --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">Jumlah Kamar</label>
                     <input type="text"
@@ -182,7 +180,6 @@
                                 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
-                {{-- WHATSAPP --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">WhatsApp</label>
                     <input type="text" name="kontak_whatsapp" id="wa"
@@ -235,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const preview = document.getElementById('previewContainer');
 
 
-    // ================= GET DATA CLEAN =================
+    // GET DATA CLEAN
     function getFormData() {
         const data = {};
 
@@ -255,13 +252,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const initialData = getFormData();
 
 
-    // ================= CHANGE DETECT =================
+    // CHANGE DETECT
     function isChanged() {
         return getFormData() !== initialData;
     }
 
 
-    // ================= UPDATE BUTTON =================
+    // UPDATE BUTTON
     function updateBtn() {
         if (isChanged()) {
             btn.disabled = false;
@@ -281,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('change', updateBtn);
 
 
-    // ================= SUBMIT =================
+    // SUBMIT
     form.addEventListener('submit', function (e) {
 
         if (!isChanged()) {
@@ -297,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    // ================= FOTO PREVIEW =================
+    // FOTO PREVIEW
     if (input && preview) {
         input.addEventListener('change', function () {
 
@@ -337,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // ================= TIPE TANAH =================
+    // TIPE TANAH
     function toggleKamar() {
         if (tipe.value === 'tanah') {
             kamar.value = '';
@@ -357,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleKamar();
 
 
-    // ================= WA VALIDATION =================
+    // WA VALIDATION
     wa.addEventListener('input', function () {
 
         this.value = this.value.replace(/[^0-9]/g, '').slice(0,15);

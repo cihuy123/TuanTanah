@@ -3,12 +3,8 @@
 @section('title', 'Beranda')
 
 @section('content')
-{{-- =========================
-    STATISTIK
-========================= --}}
 <div class="flex flex-col lg:flex-row gap-8 mb-12">
 
-    {{-- Jumlah Properti --}}
     <div class="bg-gradient-to-br from-[#151541] to-indigo-800
                 text-white p-6 rounded-2xl
                 w-full lg:w-56 text-center
@@ -23,8 +19,6 @@
         </p>
     </div>
 
-
-    {{-- Status Properti --}}
     <div class="flex-1">
 
         <div class="bg-gradient-to-r from-[#151541] to-indigo-800
@@ -38,7 +32,6 @@
                     gap-4 bg-white p-4 sm:p-6
                     rounded-b-2xl shadow-sm">
 
-            {{-- Belum Dibayar --}}
             <div class="bg-red-50 text-red-500 px-4 py-4 rounded-xl text-center">
                 <p class="text-[10px] sm:text-xs uppercase tracking-wide font-bold">
                     Belum Dibayar
@@ -48,7 +41,6 @@
                 </p>
             </div>
 
-            {{-- Sudah Bayar --}}
             <div class="bg-yellow-50 text-yellow-600 px-4 py-4 rounded-xl text-center">
                 <p class="text-[10px] sm:text-xs uppercase tracking-wide font-bold">
                     Sudah Bayar
@@ -58,7 +50,6 @@
                 </p>
             </div>
 
-            {{-- Menunggu --}}
             <div class="bg-indigo-50 text-indigo-700 px-4 py-4 rounded-xl text-center">
                 <p class="text-[10px] sm:text-xs uppercase tracking-wide font-bold">
                     Menunggu
@@ -68,7 +59,6 @@
                 </p>
             </div>
 
-            {{-- Disetujui --}}
             <div class="bg-green-50 text-green-700 px-4 py-4 rounded-xl text-center">
                 <p class="text-[10px] sm:text-xs uppercase tracking-wide font-bold">
                     Disetujui
@@ -78,7 +68,6 @@
                 </p>
             </div>
 
-            {{-- Ditolak --}}
             <div class="bg-red-100 text-red-700 px-4 py-4 rounded-xl text-center">
                 <p class="text-[10px] sm:text-xs uppercase tracking-wide font-bold">
                     Ditolak
@@ -95,10 +84,6 @@
 </div>
 
 
-
-{{-- =========================
-    PROPERTI DISETUJUI
-========================= --}}
 <h2 class="text-xl font-semibold text-gray-800 mb-8 font-inria">
     Properti yang sudah disetujui
 </h2>
@@ -152,7 +137,6 @@
             Rp {{ number_format($item->harga, 0, ',', '.') }}
         </p>
 
-        {{-- Optional hint --}}
         <p class="text-xs text-gray-400 mt-3">
             Klik untuk mengubah data
         </p>

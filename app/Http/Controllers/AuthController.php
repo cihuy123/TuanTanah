@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | REGISTER
-    |--------------------------------------------------------------------------
-    */
-
     public function showRegister()
     {
         return view('daftar');
@@ -27,17 +21,14 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ], [
-            // NAME
             'name.required' => 'Nama wajib diisi.',
             'name.string' => 'Nama harus berupa teks.',
             'name.max' => 'Nama maksimal 255 karakter.',
 
-            // EMAIL
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
 
-            // PASSWORD
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 6 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
@@ -53,14 +44,6 @@ class AuthController extends Controller
         return redirect()->route('masuk')
             ->with('success', 'Akun berhasil dibuat, silakan login.');
     }
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOGIN
-    |--------------------------------------------------------------------------
-    */
 
     public function showLogin()
     {
@@ -101,13 +84,6 @@ class AuthController extends Controller
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOGOUT
-    |--------------------------------------------------------------------------
-    */
 
     public function logout(Request $request)
     {

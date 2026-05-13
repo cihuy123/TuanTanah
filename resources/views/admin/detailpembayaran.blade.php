@@ -6,7 +6,6 @@
 
 <div class="max-w-4xl mx-auto mt-6">
 
-    {{-- BACK --}}
     <a href="{{ route('admin.pembayaran') }}"
         class="inline-flex items-center gap-2 mb-8 px-5 py-2.5
                 bg-white border border-gray-200 rounded-full shadow-sm
@@ -30,7 +29,6 @@
 
     <div class="grid md:grid-cols-2 gap-6">
 
-        {{-- ================= LEFT (BUKTI) ================= --}}
         <div class="bg-white rounded-xl shadow-sm p-4">
 
             <p class="text-sm font-semibold mb-3 text-gray-800 font-inria">
@@ -48,12 +46,11 @@
 
         </div>
 
-        {{-- ================= RIGHT ================= --}}
+        {{-- RIGHT --}}
         <div class="space-y-4">
 
             <div class="bg-white rounded-xl shadow-sm p-5">
 
-                {{-- PROPERTI MINI --}}
                 <div class="flex items-center gap-3 mb-3">
                     @php
                         $foto = $properti->fotos->first();
@@ -70,14 +67,12 @@
                     </div>
                 </div>
 
-                {{-- STATUS (PINDAH KE SINI) --}}
                 <div class="mb-4">
                     <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-semibold font-inria">
                         Menunggu Validasi
                     </span>
                 </div>
 
-                {{-- BIAYA --}}
                 <div>
                     <p class="text-gray-400 text-sm font-inria">Biaya Upload</p>
                     <p class="text-2xl font-bold text-indigo-600">

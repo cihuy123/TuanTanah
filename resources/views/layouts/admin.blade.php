@@ -14,7 +14,6 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between h-16">
 
-            {{-- Logo --}}
             <a href="{{ route('admin.beranda') }}" class="text-xl font-bold tracking-wide">
                 Tuan Tanah
             </a>
@@ -108,7 +107,6 @@
     @yield('content')
 </main>
 
-{{-- Footer --}}
 <footer class="bg-[#151541] text-white mt-16 font-inria">
     <div class="max-w-7xl mx-auto px-6 py-12">
 

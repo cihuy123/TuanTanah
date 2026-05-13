@@ -9,7 +9,6 @@
     {{-- CARD --}}
     <div class="bg-[#151541] w-full max-w-sm rounded-2xl shadow-2xl p-8 text-white relative">
 
-        {{-- BACK BUTTON --}}
         <a href="{{ url()->previous() ?: route('pelanggan.beranda') }}"
         class="absolute top-4 left-4 flex items-center justify-center w-9 h-9
                 rounded-full bg-white/10 backdrop-blur-md
@@ -38,7 +37,6 @@
         <form method="POST" action="{{ route('masuk') }}" class="space-y-5">
             @csrf
 
-            {{-- Email --}}
             <div>
                 <label class="text-xs uppercase tracking-wide text-gray-300 font-inria">
                     Email
@@ -57,7 +55,6 @@
                 @enderror
             </div>
 
-            {{-- Password --}}
             <div>
                 <label class="text-xs uppercase tracking-wide text-gray-300 font-inria">
                     Password
@@ -75,7 +72,6 @@
                 @enderror
             </div>
 
-            {{-- Submit --}}
             <button type="submit"
                     class="w-full bg-indigo-600 hover:bg-indigo-700
                            py-3 rounded-lg text-sm font-semibold
@@ -86,7 +82,6 @@
 
         </form>
 
-        {{-- Link Register --}}
         <p class="text-xs text-gray-300 mt-6 text-center font-inria">
             Belum punya akun?
             <a href="{{ route('daftar') }}"

@@ -27,7 +27,6 @@
         Kembali
     </a>
 
-
     {{-- HERO SLIDER --}}
     <div class="relative rounded-3xl overflow-hidden shadow-xl mb-8">
 
@@ -47,16 +46,21 @@
         </div>
 
         {{-- OVERLAY --}}
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+       <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
 
-        {{-- NAV --}}
         <button onclick="prevSlide()"
-            class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white px-3 py-1 rounded-full shadow cursor-pointer">
+           class="absolute left-3 top-1/2 -translate-y-1/2
+                bg-white/80 hover:bg-white
+                w-10 h-10 flex items-center justify-center
+                rounded-full shadow-lg z-20 cursor-pointer">
             ‹
         </button>
 
         <button onclick="nextSlide()"
-            class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white px-3 py-1 rounded-full shadow cursor-pointer">
+            class="absolute right-3 top-1/2 -translate-y-1/2
+                bg-white/80 hover:bg-white
+                w-10 h-10 flex items-center justify-center
+                rounded-full shadow-lg z-20 cursor-pointer">
             ›
         </button>
 
@@ -72,7 +76,6 @@
 
             <p class="flex items-center gap-2 text-sm opacity-90 mt-1">
 
-                {{-- ICON LOCATION --}}
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
                      fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -86,7 +89,6 @@
 
         </div>
 
-        {{-- PRICE --}}
         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-5 py-2 rounded-full shadow-lg">
             <p class="text-indigo-600 font-bold text-lg">
                 Rp {{ number_format($properti->harga, 0, ',', '.') }}
@@ -95,14 +97,12 @@
 
     </div>
 
-
     {{-- GRID --}}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
         {{-- LEFT --}}
         <div class="lg:col-span-2 space-y-6">
 
-            {{-- INFO --}}
             <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                 <h3 class="font-semibold text-gray-800 mb-4 font-inria">
                     Informasi Properti
@@ -134,7 +134,6 @@
                 </div>
             </div>
 
-            {{-- FASILITAS --}}
             <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                 <h3 class="font-semibold text-gray-800 mb-4 font-inria">Fasilitas</h3>
 
@@ -151,13 +150,11 @@
                 </div>
             </div>
 
-            {{-- DESKRIPSI --}}
             <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                 <h3 class="font-semibold text-gray-800 mb-3 font-inria">Deskripsi</h3>
                 <p class="text-gray-600  leading-tight break-words font-inria">{{ $properti->deskripsi }}</p>
             </div>
 
-            {{-- MAP --}}
             <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                 <h3 class="font-semibold text-gray-800 mb-3 font-inria">Lokasi</h3>
 
@@ -180,7 +177,6 @@
                     Diposting {{ $properti->created_at->diffForHumans() }}
                 </p>
 
-                {{-- WA BUTTON --}}
                 <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $properti->kontak_whatsapp) }}"
                    target="_blank"
                    class="w-full flex items-center justify-center gap-3
@@ -189,7 +185,6 @@
                           font-semibold shadow-md hover:shadow-lg
                           transition active:scale-95 font-inria">
 
-                    {{-- Icon WhatsApp --}}
                     <svg xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 32 32"
                         class="w-5 h-5 fill-white">
@@ -209,8 +204,6 @@
 
 @endsection
 
-
-{{-- SLIDER SCRIPT --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 

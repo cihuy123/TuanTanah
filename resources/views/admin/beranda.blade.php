@@ -4,9 +4,7 @@
 
 @section('content')
 
-{{-- =========================
-    STATISTIK
-========================= --}}
+{{-- STATISTIK --}}
 <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
 
     <div class="bg-gradient-to-br from-indigo-800 to-indigo-900 text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-xl transition text-center font-semibold">
@@ -58,9 +56,7 @@
 
 
 
-{{-- =========================
-    TANDAI PROPERTI UNGGULAN
-========================= --}}
+{{-- TANDAI PROPERTI UNGGULAN --}}
 <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
 
     <form method="POST" action="{{ route('admin.unggulan') }}">

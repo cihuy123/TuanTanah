@@ -8,9 +8,6 @@ use Illuminate\Support\Carbon;
 
 class PelangganController extends Controller
 {
-    // ===============================
-    // BERANDA
-    // ===============================
     public function beranda()
     {
         $banner = Banner::whereDate('tanggal_mulai', '<=', Carbon::today())
@@ -19,7 +16,7 @@ class PelangganController extends Controller
                         ->first();
 
         $properti = Properti::where('status', 'disetujui')
-                            ->where('status_pembayaran', 'valid') // 🔥 tambahan
+                            ->where('status_pembayaran', 'valid')
                             ->where('is_unggulan', 1)
                             ->latest()
                             ->take(6)
@@ -28,22 +25,18 @@ class PelangganController extends Controller
         return view('pelanggan.beranda', compact('banner', 'properti'));
     }
 
-
-    // ===============================
     // HALAMAN SEMUA PROPERTI
-    // ===============================
     public function properti()
     {
         $query = Properti::with('fotos')
             ->where('status', 'disetujui')
             ->where('status_pembayaran', 'valid');
 
-        // 🔍 FILTER LOKASI
+        //  FILTER LOKASI
         if (request('lokasi')) {
             $query->where('lokasi', 'like', '%' . request('lokasi') . '%');
         }
 
-        // 🔍 FILTER TIPE
         if (request()->filled('tipe')) {
             $query->where('tipe_properti', request('tipe'));
         }
@@ -56,7 +49,7 @@ class PelangganController extends Controller
             $query->where('harga', '<=', (int) request('max'));
         }
 
-        // 🔥 DATA
+        //  DATA
         $properti = (clone $query)
             ->where('is_unggulan', 0)
             ->latest()
@@ -70,13 +63,10 @@ class PelangganController extends Controller
         return view('pelanggan.properti', compact('unggulan', 'properti'));
     }
 
-
-    // ===============================
     // DETAIL PROPERTI
-    // ===============================
     public function detail($id)
     {
-        $properti = Properti::with('fotos') // 🔥 TAMBAH INI
+        $properti = Properti::with('fotos')
             ->where('properti_id', $id)
             ->where('status', 'disetujui')
             ->where('status_pembayaran', 'valid')
@@ -85,10 +75,6 @@ class PelangganController extends Controller
         return view('pelanggan.detail', compact('properti'));
     }
 
-
-    // ===============================
-    // KONTAK
-    // ===============================
     public function kontak()
     {
         return view('pelanggan.kontak');

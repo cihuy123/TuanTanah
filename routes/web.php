@@ -7,12 +7,8 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\AdminController;
 
-/*
-|--------------------------------------------------------------------------
-| ROUTE PELANGGAN (PUBLIC + AUTO REDIRECT ROLE)
-|--------------------------------------------------------------------------
-*/
 
+// ROUTE PELANGGAN 
 Route::get('/', function () {
 
     if (auth()->check()) {
@@ -43,12 +39,8 @@ Route::post('/kontak/kirim', [KontakController::class, 'kirim'])
     ->name('kontak.kirim');
 
 
-/*
-|--------------------------------------------------------------------------
-| ROUTE AUTH (GUEST ONLY)
-|--------------------------------------------------------------------------
-*/
 
+// ROUTE AUTH (GUEST ONLY)
 Route::middleware('guest')->group(function () {
 
     Route::get('/masuk', [AuthController::class, 'showLogin'])
@@ -63,12 +55,8 @@ Route::middleware('guest')->group(function () {
 });
 
 
-/*
-|--------------------------------------------------------------------------
-| ROUTE LOGOUT (AUTH ONLY)
-|--------------------------------------------------------------------------
-*/
 
+// ROUTE LOGOUT
 Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])
@@ -76,12 +64,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-/*
-|--------------------------------------------------------------------------
-| ROUTE PEMILIK (ROLE: PEMILIK)
-|--------------------------------------------------------------------------
-*/
-
+// ROUTE PEMILIK
 Route::middleware(['auth', 'role:pemilik'])->prefix('pemilik')->group(function () {
 
     Route::get('/', [PemilikController::class, 'beranda'])
@@ -121,13 +104,7 @@ Route::middleware(['auth', 'role:pemilik'])->prefix('pemilik')->group(function (
         ->name('pemilik.upload.bukti');
 });
 
-
-/*
-|--------------------------------------------------------------------------
-| ROUTE ADMIN (ROLE: ADMIN)
-|--------------------------------------------------------------------------
-*/
-
+ // ROUTE ADMIN
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     Route::get('/', [AdminController::class, 'beranda'])

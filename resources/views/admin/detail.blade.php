@@ -6,7 +6,6 @@
 
 <div class="max-w-6xl mx-auto mt-2 mb-16 px-4">
 
-    {{-- Back Button --}}
     <a href="{{ route('admin.verifikasi') }}"
        class="inline-flex items-center gap-2 mb-8 px-4 py-2
               bg-white border border-gray-200 rounded-full shadow-sm
@@ -31,7 +30,7 @@
     {{-- GRID --}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14">
 
-        {{-- ================= LEFT ================= --}}
+        {{-- LEFT --}}
         <div class="space-y-6">
 
             {{-- FOTO SLIDER --}}
@@ -65,7 +64,6 @@
 
             </div>
 
-            {{-- WAKTU --}}
             <div class="bg-white rounded-2xl shadow-sm p-4 text-center">
 
                 <p class="text-sm text-gray-500 font-inria">
@@ -125,7 +123,6 @@
 
                     </form>
 
-
                     {{-- FORM SETUJUI --}}
                     <form method="POST"
                           action="{{ route('admin.proses', [$properti->properti_id, 'setujui']) }}"
@@ -152,21 +149,17 @@
 
         </div>
 
-
-
-        {{-- ================= RIGHT ================= --}}
+        {{-- RIGHT --}}
         <div class="space-y-6">
 
             <div class="bg-white rounded-2xl shadow-sm p-5 sm:p-6">
 
-                {{-- TITLE --}}
                 <h3 class="text-lg sm:text-xl font-semibold mb-6 font-inria break-words">
                     {{ $properti->nama_properti }}
                 </h3>
 
                 <div class="space-y-4 text-sm">
 
-                    {{-- LOKASI --}}
                     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
 
                         <p class="font-semibold text-gray-700 mb-1 font-inria">
@@ -179,7 +172,6 @@
 
                     </div>
 
-                    {{-- INFO --}}
                     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
 
                         <h3 class="font-semibold text-gray-700 mb-4 font-inria">
@@ -188,7 +180,6 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
 
-                            {{-- TIPE --}}
                             <div class="p-3 rounded-xl bg-gray-50">
 
                                 <p class="text-gray-500 text-xs font-inria mb-1">
@@ -201,7 +192,6 @@
 
                             </div>
 
-                            {{-- LUAS --}}
                             <div class="p-3 rounded-xl bg-gray-50">
 
                                 <p class="text-gray-500 text-xs font-inria mb-1">
@@ -214,7 +204,6 @@
 
                             </div>
 
-                            {{-- KAMAR --}}
                             <div class="p-3 rounded-xl bg-gray-50">
 
                                 <p class="text-gray-500 text-xs font-inria mb-1">
@@ -231,7 +220,6 @@
 
                     </div>
 
-                    {{-- FASILITAS --}}
                     <div class="bg-white p-4 sm:p-5 rounded-xl border border-gray-200 shadow-sm">
 
                         <p class="font-semibold text-gray-700 mb-3 font-inria">
@@ -257,7 +245,6 @@
 
                     </div>
 
-                    {{-- HARGA --}}
                     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
 
                         <p class="font-semibold text-gray-700 mb-1 font-inria">
@@ -270,7 +257,6 @@
 
                     </div>
 
-                    {{-- DESKRIPSI --}}
                     <div class="bg-white p-4 sm:p-5 rounded-xl border border-gray-200 shadow-sm">
 
                         <p class="font-semibold text-gray-700 mb-2 font-inria">
@@ -283,7 +269,6 @@
 
                     </div>
 
-                    {{-- WHATSAPP --}}
                     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
 
                         <p class="font-semibold text-gray-700 mb-1 font-inria">
@@ -306,7 +291,6 @@
 
 </div>
 
-{{-- SCRIPT --}}
 <script>
 function toggleAlasan() {
 

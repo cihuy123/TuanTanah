@@ -8,7 +8,7 @@
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-10">
 
-        <h2 class="text-center text-lg font-semibold text-gray-800 mb-8 sm:mb-10 font-inria">
+        <h2 class="text-center text-2xl font-semibold text-gray-800 mb-8 sm:mb-10 font-inria">
             Lengkapi form ini untuk mengupload Banner
         </h2>
 
@@ -22,9 +22,8 @@
             {{-- GRID RESPONSIVE --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
 
-                {{-- ================= FOTO BANNER ================= --}}
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-2 font-inria">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2 font-inria">
                         Foto Banner
                     </label>
 
@@ -37,7 +36,7 @@
                                onchange="document.getElementById('namaFile').innerText = this.files[0]?.name || 'Belum ada file dipilih'">
 
                         <label for="gambar_banner"
-                               class="flex items-center border border-gray-200 rounded-lg bg-gray-50 px-3 py-2 cursor-pointer hover:bg-gray-100 transition">
+                               class="flex items-center border border-gray-200 rounded-lg bg-gray-50 px-3 py-3 cursor-pointer hover:bg-gray-100 transition">
 
                             <svg class="w-4 h-4 text-gray-400 mr-2"
                                  fill="none"
@@ -59,8 +58,7 @@
                         </label>
                     </div>
 
-                    {{-- INFO ARAHAN --}}
-                    <div class="mt-3 text-[11px] text-gray-500 leading-relaxed">
+                    <div class="mt-3 text-[12px] text-gray-500 leading-relaxed">
                         <p>Format: JPG, PNG, atau JPEG</p>
                         <p>Ukuran maksimal: 5MB</p>
                         <p>Ukuran ideal: 1920 × 360 px (rasio 16:3)</p>
@@ -74,16 +72,16 @@
                 </div>
 
 
-                {{-- ================= TANGGAL MULAI ================= --}}
+                {{-- TANGGAL MULAI --}}
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-2 font-inria">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2 font-inria">
                         Dimulai
                     </label>
 
                     <input type="date"
                            name="tanggal_mulai"
                            value="{{ old('tanggal_mulai') }}"
-                           class="w-full border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 text-xs
+                           class="w-full border border-gray-200 rounded-lg px-3 py-3 bg-gray-50 text-xs
                                   focus:outline-none focus:ring-2 focus:ring-indigo-500
                                   focus:border-indigo-500 transition cursor-pointer">
 
@@ -95,16 +93,16 @@
                 </div>
 
 
-                {{-- ================= TANGGAL SELESAI ================= --}}
+                {{-- TANGGAL SELESAI --}}
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-2 font-inria">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2 font-inria">
                         Berakhir
                     </label>
 
                     <input type="date"
                            name="tanggal_selesai"
                            value="{{ old('tanggal_selesai') }}"
-                           class="w-full border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 text-xs
+                           class="w-full border border-gray-200 rounded-lg px-3 py-3 bg-gray-50 text-xs
                                   focus:outline-none focus:ring-2 focus:ring-indigo-500
                                   focus:border-indigo-500 transition cursor-pointer">
 
@@ -117,11 +115,10 @@
 
             </div>
 
-            {{-- BUTTON --}}
             <div class="pt-6">
                 <button type="submit"
                         class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg
-                               text-sm font-medium shadow-md hover:shadow-lg transition duration-200 cursor-pointer font-inria">
+                               text-sm font-semibold shadow-md hover:shadow-lg transition duration-200 cursor-pointer font-inria">
                     Upload Banner
                 </button>
             </div>

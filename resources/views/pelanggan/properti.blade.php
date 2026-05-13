@@ -13,7 +13,6 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
 
-            {{-- LOKASI --}}
             <div class="relative">
                 <label class="text-[11px] text-gray-500 font-medium font-inria">Lokasi</label>
 
@@ -24,7 +23,6 @@
                             pl-9 pr-3 py-2 text-sm
                             focus:ring-2 focus:ring-indigo-500 outline-none">
 
-                    {{-- ICON --}}
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -34,8 +32,6 @@
                 </div>
             </div>
 
-
-            {{-- TIPE --}}
             <div>
                 <label class="text-[11px] text-gray-500 font-medium font-inria">Tipe</label>
 
@@ -52,8 +48,6 @@
                 </select>
             </div>
 
-
-            {{-- MIN --}}
             <div class="relative">
                 <label class="text-[11px] text-gray-500 font-medium font-inria">Min</label>
 
@@ -68,8 +62,6 @@
                 </span>
             </div>
 
-
-            {{-- MAX --}}
             <div class="relative">
                 <label class="text-[11px] text-gray-500 font-medium font-inria">Max</label>
 
@@ -84,18 +76,14 @@
                 </span>
             </div>
 
-
-            {{-- BUTTON --}}
             <div class="flex gap-2">
 
-                {{-- SUBMIT --}}
                 <button type="submit"
                     class="flex-1 flex items-center justify-center gap-2
                         bg-indigo-600 text-white px-4 py-2
                         rounded-lg text-sm font-medium
                         hover:bg-indigo-700 shadow-sm hover:shadow-md transition cursor-pointer font-inria">
 
-                    {{-- ICON SEARCH --}}
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-4 h-4"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -106,7 +94,6 @@
                     Cari
                 </button>
 
-                {{-- RESET --}}
                 <a href="{{ route('pelanggan.properti') }}"
                 class="px-3 py-2 text-sm rounded-lg border border-gray-200
                         text-gray-600 hover:bg-gray-100 text-center font-inria">
@@ -136,7 +123,6 @@
                         hover:shadow-xl hover:-translate-y-1
                         transition duration-300">
 
-                    {{-- IMAGE + BADGE --}}
                     <div class="relative overflow-hidden">
                         @php
                             $foto = $item->fotos->first();
@@ -187,7 +173,6 @@
         </div>
     </section>
 
-
     <section class="py-7">
         <div class="max-w-7xl mx-auto px-6">
 
@@ -204,7 +189,6 @@
                         hover:shadow-xl hover:-translate-y-1
                         transition duration-300">
 
-                    {{-- IMAGE --}}
                     <div class="relative overflow-hidden">
                         @php
                             $foto = $item->fotos->first();

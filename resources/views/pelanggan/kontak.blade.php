@@ -8,12 +8,10 @@
 
     <div class="max-w-7xl mx-auto px-6">
 
-        {{-- JUDUL --}}
         <h2 class="text-3xl font-bold font-inria text-center text-gray-800 mb-14">
             Informasi Kontak Kami
         </h2>
 
-        {{-- BOX INFORMASI --}}
         <div class="grid md:grid-cols-4 gap-6 mb-20">
 
             <div class="bg-gradient-to-br from-[#151541] to-indigo-700 text-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition duration-300">
@@ -40,9 +38,6 @@
 
         </div>
 
-
-
-        {{-- FORM & KONTAK CEPAT --}}
         <div class="grid md:grid-cols-2 gap-16">
 
             {{-- FORM KONTAK --}}
@@ -101,8 +96,6 @@
                 </form>
             </div>
 
-
-
             {{-- KONTAK CEPAT --}}
             <div class="flex flex-col justify-center">
 
@@ -120,7 +113,6 @@
                           text-white py-4 rounded-2xl text-sm font-semibold
                           shadow-md hover:shadow-xl transition duration-300 font-inria">
 
-                    {{-- Icon WhatsApp --}}
                     <svg xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 32 32"
                         class="w-5 h-5 fill-white">

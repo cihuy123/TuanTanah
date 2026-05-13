@@ -9,7 +9,6 @@
     {{-- CARD --}}
     <div class="bg-[#151541] w-full max-w-sm rounded-2xl shadow-2xl p-8 text-white relative">
 
-        {{-- BACK BUTTON --}}
         <a href="{{ url()->previous() ?: route('pelanggan.beranda') }}"
            class="absolute top-5 left-5 flex items-center justify-center w-10 h-10
                   rounded-full bg-white/10 backdrop-blur-md
@@ -30,16 +29,13 @@
             </svg>
         </a>
 
-        {{-- Judul --}}
         <h2 class="text-2xl font-semibold text-center mb-8 mt-4 font-inria tracking-wide">
             Buat Akun
         </h2>
 
-        {{-- Form --}}
         <form method="POST" action="{{ route('daftar') }}" class="space-y-5">
         @csrf
 
-        {{-- Nama --}}
         <div>
             <label class="text-xs uppercase tracking-wide text-gray-300 font-inria">
                 Nama
@@ -56,7 +52,6 @@
             @enderror
         </div>
 
-        {{-- Email --}}
         <div>
             <label class="text-xs uppercase tracking-wide text-gray-300 font-inria">
                 Email
@@ -73,7 +68,6 @@
             @enderror
         </div>
 
-        {{-- Password --}}
         <div>
             <label class="text-xs uppercase tracking-wide text-gray-300 font-inria">
                 Password
@@ -89,7 +83,6 @@
             @enderror
         </div>
 
-        {{-- Konfirmasi Password --}}
         <div>
             <label class="text-xs uppercase tracking-wide text-gray-300 font-inria">
                 Konfirmasi Password
@@ -102,7 +95,6 @@
                           focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
         </div>
 
-        {{-- Submit --}}
         <button type="submit"
                 class="w-full bg-indigo-600 hover:bg-indigo-700
                        py-3 rounded-lg text-sm font-semibold
@@ -113,7 +105,6 @@
 
     </form>
 
-        {{-- Link Login --}}
         <p class="text-xs text-gray-300 mt-6 text-center font-inria">
             Sudah punya akun?
             <a href="{{ route('masuk') }}"

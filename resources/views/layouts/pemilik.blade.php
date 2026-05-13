@@ -2,7 +2,6 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    {{-- Baris sakti ini yang KURANG, Yang Mulia: --}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;600;700&display=swap" rel="stylesheet">
@@ -15,7 +14,6 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between h-16">
 
-            {{-- Logo --}}
             <a href="{{ route('pemilik.beranda') }}" class="text-xl font-bold tracking-wide">
                 Tuan Tanah
             </a>
@@ -111,7 +109,6 @@
 </main>
 
 
-{{-- Footer --}}
 <footer class="bg-[#151541] text-white mt-16 font-inria">
     <div class="max-w-7xl mx-auto px-6 py-12">
 

@@ -8,12 +8,11 @@
 
     <div class="w-full max-w-3xl">
 
-        {{-- Judul --}}
         <h2 class="text-2xl font-semibold text-center mb-8 font-inria text-gray-800">
             Lengkapi form ini untuk mengupload properti
         </h2>
 
-        {{-- ================= INFO FREEMIUM MODERN ================= --}}
+        {{-- INFO FREEMIUM --}}
         <div class="mb-10 relative overflow-hidden rounded-2xl
                     bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800
                     text-white p-6 shadow-xl">
@@ -224,7 +223,6 @@
                 {{-- ROW 4 --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                    {{-- TIPE --}}
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
                             Tipe Properti
@@ -241,7 +239,6 @@
                         </select>
                     </div>
 
-                    {{-- LUAS --}}
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
                             Luas Tanah (m²)
@@ -275,14 +272,11 @@
                         class="w-full h-[42px] border border-gray-200 rounded-lg px-4 text-sm
                             focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
 
-                    {{-- INFO --}}
                     <p id="kamarInfo" class="text-xs text-gray-400 mt-1 hidden">
                         Tidak berlaku untuk tipe tanah
                     </p>
                 </div>
 
-
-                {{-- DESKRIPSI --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2 font-inria">
                         Deskripsi
@@ -297,7 +291,6 @@
                     @enderror
                 </div>
 
-                {{-- BUTTON --}}
                 <div class="pt-4">
                     <button type="submit" id="btnUpload"
                         class="w-full bg-indigo-600 hover:bg-indigo-700
@@ -321,7 +314,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ================= ELEMENT =================
+    // ELEMENT
     const form = document.getElementById('formUpload');
     const btn = document.getElementById('btnUpload');
 
@@ -335,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let filesArray = [];
 
 
-    // ================= SUBMIT BUTTON =================
+    // SUBMIT BUTTON
     if (form && btn) {
         form.addEventListener('submit', function () {
             btn.disabled = true;
@@ -345,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // ================= TIPE TANAH =================
+    // TIPE TANAH
     function toggleKamar() {
         if (!tipe || !kamar) return;
 
@@ -372,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // ================= FOTO MULTI UPLOAD =================
+    // FOTO MULTI UPLOAD
     if (input) {
         input.addEventListener('change', function(e) {
 

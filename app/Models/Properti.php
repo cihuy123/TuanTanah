@@ -19,14 +19,14 @@ class Properti extends Model
         'kontak_whatsapp',
         'foto_properti',
         'status',
-        'status_pembayaran', // 🔥 tambahan
+        'status_pembayaran',
         'is_unggulan',
         'bukti_pembayaran',
         'alasan_penolakan',
         'tipe_properti',
         'luas_tanah',
         'jumlah_kamar',
-        'alasan_penolakan_pembayaran' // 🔥 tambahan
+        'alasan_penolakan_pembayaran'
 
     ];
 
@@ -35,7 +35,6 @@ class Properti extends Model
         return $this->belongsTo(User::class);
     }
 
-    // 🔥 OPTIONAL (BIAR CLEAN QUERY)
     public function scopeSiapTampil($query)
     {
         return $query->where('status', 'disetujui')

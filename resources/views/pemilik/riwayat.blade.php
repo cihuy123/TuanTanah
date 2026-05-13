@@ -5,10 +5,7 @@
 @section('content')
 
 <div class="bg-gray-50 pb-16">
-
-    {{-- =========================
-        MENUNGGU VERIFIKASI
-    ========================= --}}
+    {{-- MENUNGGU VERIFIKASI --}}
     <section class="pt-8">
         <div class="max-w-7xl mx-auto px-6">
 
@@ -86,10 +83,7 @@
     </section>
 
 
-
-    {{-- =========================
-        DITOLAK
-    ========================= --}}
+    {{-- DITOLAK --}}
     <section class="pt-12">
         <div class="max-w-7xl mx-auto px-6">
 

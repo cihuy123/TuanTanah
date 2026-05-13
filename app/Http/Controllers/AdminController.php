@@ -10,21 +10,17 @@ use App\Models\Banner;
 
 class AdminController extends Controller
 {
-    // ======================================
-    // BERANDA
-    // ======================================
     public function beranda()
     {
-        // 🔥 TOTAL PROPERTI (yang sudah valid pembayaran)
         $totalProperti = Properti::where(function ($q) {
 
-    // 🔥 SUDAH BAYAR MENUNGGU VALIDASI
+    //  SUDAH BAYAR MENUNGGU VALIDASI
             $q->where(function ($sub) {
                 $sub->where('status_pembayaran', 'pending')
                     ->whereNotNull('bukti_pembayaran');
             })
 
-            // 🔥 SUDAH VALID & BUKAN DITOLAK
+            //  SUDAH VALID & BUKAN DITOLAK
             ->orWhere(function ($sub) {
                 $sub->where('status_pembayaran', 'valid')
                     ->whereIn('status', ['menunggu', 'disetujui']);
@@ -32,25 +28,22 @@ class AdminController extends Controller
 
         })->count();
 
-        // 🔥 TOTAL PEMILIK
         $totalPemilik = User::where('role', 'pemilik')->count();
 
-        // 🔥 MENUNGGU VERIFIKASI PROPERTI (SUDAH BAYAR)
         $menunggu = Properti::where('status_pembayaran', 'valid')
             ->where('status', 'menunggu')
             ->count();
 
-        // 🔥 PROPERTI AKTIF (SUDAH DISETUJUI + SUDAH BAYAR)
         $totalAktif = Properti::where('status_pembayaran', 'valid')
             ->where('status', 'disetujui')
             ->count();
 
-        // 🔥 MENUNGGU VALIDASI PEMBAYARAN
+        //  MENUNGGU VALIDASI PEMBAYARAN
         $menungguPembayaran = Properti::where('status_pembayaran', 'pending')
             ->whereNotNull('bukti_pembayaran')
             ->count();
 
-        // 🔥 LIST PROPERTI (YANG SUDAH SIAP TAMPIL)
+        //  LIST PROPERTI (YANG SUDAH SIAP TAMPIL)
         $properti = Properti::with('fotos')
             ->where('status_pembayaran', 'valid')
             ->where('status', 'disetujui')
@@ -67,28 +60,23 @@ class AdminController extends Controller
         ));
     }
 
-    // ======================================
-    // UNGGULAN
-    // ======================================
     public function unggulan(Request $request)
     {
         Properti::where('status', 'disetujui')
-            ->where('status_pembayaran', 'valid') // 🔥 TAMBAH
+            ->where('status_pembayaran', 'valid')
             ->update(['is_unggulan' => 0]);
 
         if ($request->properti) {
             Properti::whereIn('properti_id', $request->properti)
                 ->where('status', 'disetujui')
-                ->where('status_pembayaran', 'valid') // 🔥 TAMBAH INI
+                ->where('status_pembayaran', 'valid')
                 ->update(['is_unggulan' => 1]);
         }
 
         return back()->with('success', 'Properti unggulan berhasil diperbarui.');
     }
 
-    // ======================================
     // LIST VERIFIKASI PROPERTI
-    // ======================================
     public function verifikasi()
     {
         $properti = Properti::with('fotos')
@@ -100,9 +88,7 @@ class AdminController extends Controller
         return view('admin.verifikasi', compact('properti'));
     }
 
-    // ======================================
     // DETAIL PROPERTI
-    // ======================================
     public function detail($id)
     {
         $properti = Properti::with('fotos')
@@ -113,14 +99,11 @@ class AdminController extends Controller
         return view('admin.detail', compact('properti'));
     }
 
-    // ======================================
-    // PROSES VERIFIKASI PROPERTI
-    // ======================================
     public function verifikasiProses(Request $request, $id, $aksi)
     {
         $properti = Properti::where('properti_id', $id)
             ->where('status', 'menunggu')
-            ->where('status_pembayaran', 'valid') // 🔥 TAMBAH INI
+            ->where('status_pembayaran', 'valid')
             ->firstOrFail();
 
         if ($aksi === 'setujui') {
@@ -150,17 +133,12 @@ class AdminController extends Controller
             ->with('success', 'Status properti berhasil diperbarui.');
     }
 
-    // ======================================
-    // FORM UPLOAD BANNER
-    // ======================================
     public function uploadBannerForm()
     {
         return view('admin.upload');
     }
 
-    // ======================================
     // STORE BANNER
-    // ======================================
     public function uploadBanner(Request $request)
     {
         $request->validate([
@@ -195,9 +173,7 @@ class AdminController extends Controller
             ->with('success', 'Banner berhasil diupload.');
     }
 
-    // ======================================
     // LIST PEMBAYARAN (SUDAH UPLOAD BUKTI)
-    // ======================================
     public function pembayaran()
     {
         $properti = Properti::with('fotos')
@@ -209,10 +185,6 @@ class AdminController extends Controller
         return view('admin.pembayaran', compact('properti'));
     }
 
-
-    // ======================================
-    // DETAIL PEMBAYARAN
-    // ======================================
     public function detailPembayaran($id)
     {
         $properti = Properti::with('fotos')
@@ -224,10 +196,6 @@ class AdminController extends Controller
         return view('admin.detailpembayaran', compact('properti'));
     }
 
-
-    // ======================================
-    // VALIDASI PEMBAYARAN
-    // ======================================
     public function validasiPembayaran($id)
     {
         $properti = Properti::where('properti_id', $id)
@@ -237,17 +205,13 @@ class AdminController extends Controller
 
         $properti->update([
             'status_pembayaran' => 'valid',
-            'status' => 'menunggu' // lanjut ke verifikasi properti
+            'status' => 'menunggu'
         ]);
 
         return redirect()->route('admin.pembayaran')
             ->with('success', 'Pembayaran berhasil divalidasi.');
     }
 
-
-    // ======================================
-    // TOLAK PEMBAYARAN (BARU)
-    // ======================================
     public function tolakPembayaran(Request $request, $id)
     {
         $request->validate([

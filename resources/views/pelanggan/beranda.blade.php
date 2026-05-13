@@ -82,7 +82,6 @@
                                     text-white shadow-lg
                                     group-hover:scale-110 transition duration-300">
 
-                            {{-- Sparkle / Success Icon --}}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-5 h-5"
                                 fill="none"
@@ -108,7 +107,6 @@
 
                     </div>
 
-
                     {{-- Feature 2 --}}
                     <div class="group flex items-start gap-5">
 
@@ -117,7 +115,6 @@
                                     text-white shadow-lg
                                     group-hover:scale-110 transition duration-300">
 
-                            {{-- Shield Icon --}}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-5 h-5"
                                 fill="none"
@@ -150,7 +147,6 @@
                                     text-white shadow-lg
                                     group-hover:scale-110 transition duration-300">
 
-                            {{-- Star / Featured Icon --}}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-5 h-5"
                                 fill="none"
@@ -228,8 +224,6 @@
     </div>
 </section>
 
-
-
 {{-- CTA IKLAN --}}
 <section class="py-15 bg-gray-100">
     <div class="max-w-7xl mx-auto px-6">
@@ -272,8 +266,6 @@
     </div>
 </section>
 
-
-
 {{-- PROPERTI UNGGULAN --}}
 <section class="bg-white py-15">
     <div class="max-w-7xl mx-auto px-6">
@@ -298,19 +290,20 @@
 
                 {{-- BADGE UNGGULAN --}}
                 <div class="relative overflow-hidden">
-                    @php
-                        $foto = $item->fotos->first();
-                    @endphp
+                        @php
+                            $foto = $item->fotos->first();
+                        @endphp
 
-                    <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
-                        class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
+                        <img src="{{ $foto ? asset('storage/' . $foto->path) : asset('images/no-image.png') }}"
+                            class="w-full h-44 object-cover group-hover:scale-105 transition duration-300">
+
                         <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-700 text-xs px-3 py-1 rounded-full shadow font-bold font-inria">
                             {{ ucfirst($item->tipe_properti ?? 'properti') }}
                         </div>
-                    <div class="absolute top-3 left-3 bg-gradient-to-r from-yellow-600 to-orange-400 text-white text-xs px-3 py-1 rounded-full shadow font-semibold font-inria">
-                        ⭐ Properti Unggulan
+                        <div class="absolute top-3 left-3 bg-gradient-to-r from-yellow-600 to-orange-400 text-white text-xs px-3 py-1 rounded-full shadow font-semibold font-inria">
+                            ⭐ Properti Unggulan
+                        </div>
                     </div>
-                </div>
 
                 <div class="p-7 text-sm">
 

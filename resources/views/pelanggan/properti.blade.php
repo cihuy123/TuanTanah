@@ -145,16 +145,16 @@
                             {{ $item->nama_properti }}
                         </h3>
 
-                        <p class="text-gray-500 text-xs mb-1">
+                        <p class="text-gray-500 text-xs mb-1 font-inria">
                             {{ $item->lokasi }}
                         </p>
 
-                        <p class="text-gray-500 text-xs truncate">
+                        <p class="text-gray-500 text-xs truncate font-inria">
                             {{ implode(' • ', array_map('trim', explode(',', $item->fasilitas))) }}
                         </p>
 
                         <div class="flex justify-between items-center mt-4">
-                            <p class="font-bold text-indigo-600">
+                            <p class="font-bold text-indigo-600 font-inria">
                                 Rp {{ number_format($item->harga, 0, ',', '.') }}
                             </p>
                         </div>
@@ -208,16 +208,16 @@
                             {{ $item->nama_properti }}
                         </h3>
 
-                        <p class="text-gray-500 text-xs mb-1">
+                        <p class="text-gray-500 text-xs mb-1 font-inria">
                             {{ $item->lokasi }}
                         </p>
 
-                        <p class="text-gray-500 text-xs truncate">
+                        <p class="text-gray-500 text-xs truncate font-inria">
                             {{ implode(' • ', array_map('trim', explode(',', $item->fasilitas))) }}
                         </p>
 
                         <div class="flex justify-between items-center mt-4">
-                            <p class="font-bold text-indigo-600">
+                            <p class="font-bold text-indigo-600 font-inria">
                                 Rp {{ number_format($item->harga, 0, ',', '.') }}
                             </p>
                         </div>

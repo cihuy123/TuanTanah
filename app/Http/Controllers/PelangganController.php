@@ -72,8 +72,20 @@ class PelangganController extends Controller
             ->where('status_pembayaran', 'valid')
             ->firstOrFail();
 
-        return view('pelanggan.detail', compact('properti'));
-    }
+        // 🔥 PROPERTI LAINNYA
+        $propertiLainnya = Properti::with('fotos')
+            ->where('properti_id', '!=', $properti->properti_id)
+            ->where('status', 'disetujui')
+            ->where('status_pembayaran', 'valid')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('pelanggan.detail', compact(
+            'properti',
+            'propertiLainnya'
+        ));
+    }       
 
     public function kontak()
     {

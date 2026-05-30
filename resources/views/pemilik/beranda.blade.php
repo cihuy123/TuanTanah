@@ -18,6 +18,7 @@
             {{ $total }}
         </p>
     </div>
+    
 
     <div class="flex-1">
 
